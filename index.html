@@ -1,139 +1,197 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>30 Day Grind Plan</title>
-  <style>
-    body {
-      font-family: Arial;
-      background: #0f172a;
-      color: white;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-    }
-    .day {
-      background: #1e293b;
-      padding: 15px;
-      margin: 12px 0;
-      border-radius: 10px;
-    }
-    .topic {
-      padding: 6px;
-      margin: 3px 0;
-      background: #334155;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .topic:hover {
-      background: #475569;
-    }
-    textarea {
-      width: 100%;
-      margin-top: 10px;
-      border-radius: 5px;
-      padding: 6px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>30-Day Transition Plan: DSA, Python & ML</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --card-bg: #1e293b;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-orange: #f59e0b;
+            --holiday-bg: #312e81;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            text-align: center;
+            color: var(--text-main);
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .day-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--accent-blue);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .day-card.holiday {
+            background-color: var(--holiday-bg);
+            border-left: 4px solid var(--accent-orange);
+        }
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .date {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .tag {
+            font-size: 0.8em;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .tag.holiday { background-color: var(--accent-orange); color: #000; font-weight: bold;}
+        .timeline {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .timeline li {
+            margin-bottom: 12px;
+            font-size: 0.9em;
+            display: flex;
+            align-items: flex-start;
+        }
+        .time {
+            min-width: 120px;
+            color: var(--accent-green);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .task {
+            flex-grow: 1;
+            color: var(--text-muted);
+        }
+        .task strong {
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .highlight {
+            color: var(--accent-purple);
+            font-weight: 600;
+        }
+        .legend {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
 
-<h1>🚀 30 Day Grind Plan</h1>
-<div id="container"></div>
+<div class="container">
+    <h1>30-Day Engineering Blueprint</h1>
+    <p class="subtitle">Focus: Data Structures, Python Backend, and Machine Learning Fundamentals</p>
+
+    <div class="legend">
+        <strong>Schedule Rules:</strong> Standard days include the 7 AM - 7 PM college block (utilize free periods on the Windows 11 environment). Holiday/Sunday days leverage uninterrupted blocks for heavier ML math and FastAPI architecture.
+    </div>
+
+    <div class="schedule-grid" id="calendar-grid">
+        </div>
+</div>
 
 <script>
-const plan = [
+    const startDate = new Date("2026-03-19T00:00:00");
+    
+    // Andhra Pradesh 2026 public holidays in this window
+    const holidays = {
+        "2026-03-19": "Ugadi",
+        "2026-03-20": "Ramzan",
+        "2026-03-26": "Sri Rama Navami",
+        "2026-04-03": "Good Friday",
+        "2026-04-05": "Babu Jagjivan Ram Jayanti",
+        "2026-04-14": "Dr. B.R. Ambedkar Jayanti"
+    };
 
-/* ---------- DAYS 1–10 (FOUNDATION) ---------- */
-{day:1,dsa:["array basics in C","time complexity big O arrays"],python:["python variables data types","python input output"],ml:["what is machine learning","types supervised unsupervised"]},
-{day:2,dsa:["array reverse in C","find max min array"],python:["python for loop while loop","range function python"],ml:["dataset features labels","csv dataset explanation"]},
-{day:3,dsa:["two pointer technique arrays","two sum problem"],python:["python functions tutorial","return vs print"],ml:["train test split sklearn"]},
-{day:4,dsa:["sliding window technique","maximum subarray kadane"],python:["python lists tutorial","list methods append remove"],ml:["overfitting vs underfitting"]},
-{day:5,dsa:["prefix sum array","range sum query"],python:["python tuples","tuple vs list"],ml:["linear regression intuition"]},
-{day:6,dsa:["best time to buy sell stock problem","move zeroes array"],python:["python dictionary tutorial","dict operations"],ml:["linear regression sklearn implementation"]},
-{day:7,dsa:["array practice leetcode easy","two sum variations"],python:["python revision basics"],ml:["revision ML basics"]},
+    const regularSchedule = `
+        <ul class="timeline">
+            <li><span class="time">06:00 AM - 07:00 AM</span> <span class="task"><strong>Morning Setup</strong> Review yesterday's logic. Finalize the single Go syntax review (Days 1-2 only) or prep Python scripts.</span></li>
+            <li><span class="time">07:00 AM - 07:00 PM</span> <span class="task"><strong>College & Commute Block</strong> Include travel. Open HP laptop during breaks/labs: Solve 2 Array/Linked List problems. Review Linear Algebra notes.</span></li>
+            <li><span class="time">07:00 PM - 08:00 PM</span> <span class="task"><strong>Decompression</strong> Commute completion, dinner, and mental reset.</span></li>
+            <li><span class="time">08:00 PM - 09:30 PM</span> <span class="task"><strong>Core DSA Grind</strong> 1 Hard or 2 Medium problems. Focus on stacks, pointers, and time/space complexity calculations.</span></li>
+            <li><span class="time">09:30 PM - 10:30 PM</span> <span class="task"><strong>Python & ML Shift</strong> Write Python syntax. Implement basic NumPy arrays or Pandas dataframes.</span></li>
+            <li><span class="time">10:30 PM - 11:30 PM</span> <span class="task"><strong>Project Integration</strong> Connect the day's learning to the FastAPI backend for Maxtube or refine EPOCH-ZERO code logic.</span></li>
+        </ul>
+    `;
 
-{day:8,dsa:["string basics in C","string reverse palindrome"],python:["python oops basics"],ml:["vectors in machine learning"]},
-{day:9,dsa:["valid anagram problem","character frequency array"],python:["python classes objects"],ml:["matrices basics"]},
-{day:10,dsa:["pattern matching strings","substring problems"],python:["python modules import"],ml:["matrix multiplication"]},
+    const holidaySchedule = `
+        <ul class="timeline">
+            <li><span class="time">08:00 AM - 09:00 AM</span> <span class="task"><strong>Extended Morning</strong> Breakfast and daily environment setup.</span></li>
+            <li><span class="time">09:00 AM - 12:00 PM</span> <span class="task"><strong>Deep Algorithms Block</strong> Uninterrupted time for complex DSA. Implement polynomials or graph structures in C/Python.</span></li>
+            <li><span class="time">12:00 PM - 02:00 PM</span> <span class="task"><strong>Break & Recharge</strong> Lunch and away-from-screen time.</span></li>
+            <li><span class="time">02:00 PM - 05:00 PM</span> <span class="task"><strong>Machine Learning Math</strong> Apply matrix transformations and vector spaces in Python. Read core ML concept papers.</span></li>
+            <li><span class="time">05:00 PM - 06:30 PM</span> <span class="task"><strong>Leisure/Workout</strong> Physical activity.</span></li>
+            <li><span class="time">06:30 PM - 09:00 PM</span> <span class="task"><strong>Full Stack Build Session</strong> Major feature development. Write HTML/JS frontend and connect to Python routes. Test GitHub deployments.</span></li>
+            <li><span class="time">09:00 PM - 10:30 PM</span> <span class="task"><strong>Code Review</strong> Dinner, document the day's push, and plan tomorrow.</span></li>
+        </ul>
+    `;
 
-/* ---------- DAYS 11–20 (INTERMEDIATE) ---------- */
-{day:11,dsa:["hashing basics","frequency map"],python:["numpy basics array creation"],ml:["mean variance standard deviation"]},
-{day:12,dsa:["unordered map usage","count distinct elements"],python:["numpy operations"],ml:["probability basics ML"]},
-{day:13,dsa:["string problems leetcode easy","group anagrams"],python:["pandas basics dataframe"],ml:["regression vs classification"]},
-{day:14,dsa:["revision arrays strings"],python:["revision python"],ml:["revision ML"]},
+    const grid = document.getElementById('calendar-grid');
 
-{day:15,dsa:["linked list basics","create linked list C"],python:["pandas dataframe operations"],ml:["implement linear regression from scratch"]},
-{day:16,dsa:["reverse linked list","middle of linked list"],python:["matplotlib basics plot"],ml:["plot regression graph"]},
-{day:17,dsa:["linked list cycle detection","fast slow pointer"],python:["data cleaning pandas"],ml:["train model sklearn"]},
-{day:18,dsa:["mixed problems arrays strings"],python:["python revision"],ml:["model evaluation accuracy"]},
-{day:19,dsa:["timed practice leetcode easy","2 problems"],python:["python practice"],ml:["improve model tuning"]},
-{day:20,dsa:["mixed DSA problems"],python:["python practice"],ml:["start mini project ML"]},
+    for (let i = 0; i < 30; i++) {
+        let currentDay = new Date(startDate);
+        currentDay.setDate(startDate.getDate() + i);
+        
+        let dateString = currentDay.toISOString().split('T')[0];
+        let dayOfWeek = currentDay.getDay(); // 0 is Sunday
+        
+        let isHoliday = holidays[dateString] || dayOfWeek === 0;
+        let holidayName = holidays[dateString] ? holidays[dateString] : (dayOfWeek === 0 ? "Sunday" : "");
+        
+        let cardClass = isHoliday ? "day-card holiday" : "day-card";
+        let tagHtml = isHoliday ? \`<span class="tag holiday">\${holidayName} - Extra Hours</span>\` : \`<span class="tag">Regular Day</span>\`;
+        let scheduleHtml = isHoliday ? holidaySchedule : regularSchedule;
 
-/* ---------- DAYS 21–30 (ADVANCED + PROJECT) ---------- */
-{day:21,dsa:["revision linked list arrays"],python:["revision"],ml:["revision"]},
+        let formattedDate = currentDay.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
 
-{day:22,dsa:["light practice"],python:["project setup python"],ml:["choose dataset kaggle"]},
-{day:23,dsa:["light practice"],python:["load dataset pandas"],ml:["data cleaning preprocessing"]},
-{day:24,dsa:["light practice"],python:["feature selection"],ml:["train model"]},
-{day:25,dsa:["light practice"],python:["model evaluation"],ml:["accuracy precision recall"]},
-{day:26,dsa:["light practice"],python:["data visualization matplotlib"],ml:["visualize results"]},
-{day:27,dsa:["revision"],python:["project improvement"],ml:["final model"]},
-{day:28,dsa:["revision"],python:["upload project github"],ml:["write documentation"]},
-{day:29,dsa:["solve 10 leetcode easy"],python:["revision"],ml:["revision"]},
-{day:30,dsa:["full revision"],python:["full revision"],ml:["plan next month"]}
-
-];
-
-const container = document.getElementById("container");
-
-// load saved data
-let savedData = JSON.parse(localStorage.getItem("progress")) || {};
-
-function makeList(arr) {
-  return arr.map(topic => `
-    <div class="topic" onclick="copyText('${topic}')">
-      🔍 ${topic}
-    </div>
-  `).join("");
-}
-
-plan.forEach(p => {
-  const div = document.createElement("div");
-  div.className = "day";
-
-  const noteKey = "note_" + p.day;
-
-  div.innerHTML = `
-    <h3>Day ${p.day}</h3>
-
-    <b>DSA:</b>
-    ${makeList(p.dsa)}
-
-    <b>Python:</b>
-    ${makeList(p.python)}
-
-    <b>ML:</b>
-    ${makeList(p.ml)}
-
-    <textarea placeholder="Notes...">${savedData[noteKey] || ""}</textarea>
-  `;
-
-  const textarea = div.querySelector("textarea");
-  textarea.oninput = () => {
-    savedData[noteKey] = textarea.value;
-    localStorage.setItem("progress", JSON.stringify(savedData));
-  };
-
-  container.appendChild(div);
-});
-
-// copy function
-function copyText(text) {
-  navigator.clipboard.writeText(text);
-  alert("Copied: " + text);
-}
+        let cardHtml = \`
+            <div class="\${cardClass}">
+                <div class="day-header">
+                    <span class="date">Day \${i + 1}: \${formattedDate}</span>
+                    \${tagHtml}
+                </div>
+                \${scheduleHtml}
+            </div>
+        \`;
+        
+        grid.innerHTML += cardHtml;
+    }
 </script>
 
 </body>
