@@ -5,194 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>30-Day Transition Plan: DSA, Python & ML</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --card-bg: #1e293b;
-            --accent-green: #10b981;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-orange: #f59e0b;
-            --holiday-bg: #312e81;
-        }
         body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
             margin: 0;
             padding: 20px;
             line-height: 1.6;
         }
-        h1, h2 {
-            text-align: center;
-            color: var(--text-main);
-        }
-        .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .schedule-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        h1, h2 { color: #ffffff; text-align: center; }
+        .schedules {
+            display: flex;
             gap: 20px;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
         }
-        .day-card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border-left: 4px solid var(--accent-blue);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .day-card.holiday {
-            background-color: var(--holiday-bg);
-            border-left: 4px solid var(--accent-orange);
-        }
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .date {
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-        .tag {
-            font-size: 0.8em;
-            padding: 4px 8px;
-            border-radius: 4px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .tag.holiday { background-color: var(--accent-orange); color: #000; font-weight: bold;}
-        .timeline {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .timeline li {
-            margin-bottom: 12px;
-            font-size: 0.9em;
-            display: flex;
-            align-items: flex-start;
-        }
-        .time {
-            min-width: 120px;
-            color: var(--accent-green);
-            font-weight: bold;
-            flex-shrink: 0;
-        }
-        .task {
-            flex-grow: 1;
-            color: var(--text-muted);
-        }
-        .task strong {
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 2px;
-        }
-        .highlight {
-            color: var(--accent-purple);
-            font-weight: 600;
-        }
-        .legend {
-            background-color: var(--card-bg);
+        .schedule-box {
+            background-color: #1e1e1e;
             padding: 20px;
             border-radius: 8px;
-            margin-bottom: 30px;
-            text-align: center;
+            flex: 1;
+            min-width: 300px;
+            border-top: 4px solid #3b82f6;
         }
+        .schedule-box.holiday { border-top: 4px solid #f59e0b; }
+        .time { font-weight: bold; color: #10b981; min-width: 140px; display: inline-block; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #1e1e1e;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th { background-color: #2d2d2d; color: #fff; font-weight: bold; }
+        tr:hover { background-color: #252525; }
+        .tag-regular { background-color: #3b82f6; color: white; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; }
+        .tag-holiday { background-color: #f59e0b; color: black; padding: 4px 8px; border-radius: 4px; font-size: 0.85em; font-weight: bold; }
     </style>
 </head>
 <body>
 
-<div class="container">
     <h1>30-Day Engineering Blueprint</h1>
-    <p class="subtitle">Focus: Data Structures, Python Backend, and Machine Learning Fundamentals</p>
-
-    <div class="legend">
-        <strong>Schedule Rules:</strong> Standard days include the 7 AM - 7 PM college block (utilize free periods on the Windows 11 environment). Holiday/Sunday days leverage uninterrupted blocks for heavier ML math and FastAPI architecture.
+    
+    <div class="schedules">
+        <div class="schedule-box">
+            <h2>Regular College Day (7 AM - 7 PM)</h2>
+            <p><span class="time">06:00 AM - 07:00 AM:</span> Morning DSA syntax review.</p>
+            <p><span class="time">07:00 AM - 07:00 PM:</span> College & Commute. <em>(Use free lab periods on your Windows 11 laptop to review Linear Algebra notes or plan logic)</em>.</p>
+            <p><span class="time">07:00 PM - 08:00 PM:</span> Dinner & Decompression.</p>
+            <p><span class="time">08:00 PM - 09:30 PM:</span> Core DSA Grind (Solve 2 problems).</p>
+            <p><span class="time">09:30 PM - 10:30 PM:</span> Python Basics & ML Concepts.</p>
+            <p><span class="time">10:30 PM - 11:30 PM:</span> Project Work (FastAPI backend / UI building).</p>
+        </div>
+        
+        <div class="schedule-box holiday">
+            <h2>Sunday / Holiday (Full Focus)</h2>
+            <p><span class="time">08:00 AM - 12:00 PM:</span> Deep Algorithms Block (Implement complex structures in C/Python).</p>
+            <p><span class="time">12:00 PM - 02:00 PM:</span> Lunch & Screen Break.</p>
+            <p><span class="time">02:00 PM - 05:00 PM:</span> Math & ML Execution (Matrix operations, Pandas, NumPy).</p>
+            <p><span class="time">05:00 PM - 07:00 PM:</span> Break & Physical Activity.</p>
+            <p><span class="time">07:00 PM - 10:30 PM:</span> Deep Project Integration (Connect ML logic to your web apps).</p>
+        </div>
     </div>
 
-    <div class="schedule-grid" id="calendar-grid">
-        </div>
-</div>
-
-<script>
-    const startDate = new Date("2026-03-19T00:00:00");
-    
-    // Andhra Pradesh 2026 public holidays in this window
-    const holidays = {
-        "2026-03-19": "Ugadi",
-        "2026-03-20": "Ramzan",
-        "2026-03-26": "Sri Rama Navami",
-        "2026-04-03": "Good Friday",
-        "2026-04-05": "Babu Jagjivan Ram Jayanti",
-        "2026-04-14": "Dr. B.R. Ambedkar Jayanti"
-    };
-
-    const regularSchedule = `
-        <ul class="timeline">
-            <li><span class="time">06:00 AM - 07:00 AM</span> <span class="task"><strong>Morning Setup</strong> Review yesterday's logic. Finalize the single Go syntax review (Days 1-2 only) or prep Python scripts.</span></li>
-            <li><span class="time">07:00 AM - 07:00 PM</span> <span class="task"><strong>College & Commute Block</strong> Include travel. Open HP laptop during breaks/labs: Solve 2 Array/Linked List problems. Review Linear Algebra notes.</span></li>
-            <li><span class="time">07:00 PM - 08:00 PM</span> <span class="task"><strong>Decompression</strong> Commute completion, dinner, and mental reset.</span></li>
-            <li><span class="time">08:00 PM - 09:30 PM</span> <span class="task"><strong>Core DSA Grind</strong> 1 Hard or 2 Medium problems. Focus on stacks, pointers, and time/space complexity calculations.</span></li>
-            <li><span class="time">09:30 PM - 10:30 PM</span> <span class="task"><strong>Python & ML Shift</strong> Write Python syntax. Implement basic NumPy arrays or Pandas dataframes.</span></li>
-            <li><span class="time">10:30 PM - 11:30 PM</span> <span class="task"><strong>Project Integration</strong> Connect the day's learning to the FastAPI backend for Maxtube or refine EPOCH-ZERO code logic.</span></li>
-        </ul>
-    `;
-
-    const holidaySchedule = `
-        <ul class="timeline">
-            <li><span class="time">08:00 AM - 09:00 AM</span> <span class="task"><strong>Extended Morning</strong> Breakfast and daily environment setup.</span></li>
-            <li><span class="time">09:00 AM - 12:00 PM</span> <span class="task"><strong>Deep Algorithms Block</strong> Uninterrupted time for complex DSA. Implement polynomials or graph structures in C/Python.</span></li>
-            <li><span class="time">12:00 PM - 02:00 PM</span> <span class="task"><strong>Break & Recharge</strong> Lunch and away-from-screen time.</span></li>
-            <li><span class="time">02:00 PM - 05:00 PM</span> <span class="task"><strong>Machine Learning Math</strong> Apply matrix transformations and vector spaces in Python. Read core ML concept papers.</span></li>
-            <li><span class="time">05:00 PM - 06:30 PM</span> <span class="task"><strong>Leisure/Workout</strong> Physical activity.</span></li>
-            <li><span class="time">06:30 PM - 09:00 PM</span> <span class="task"><strong>Full Stack Build Session</strong> Major feature development. Write HTML/JS frontend and connect to Python routes. Test GitHub deployments.</span></li>
-            <li><span class="time">09:00 PM - 10:30 PM</span> <span class="task"><strong>Code Review</strong> Dinner, document the day's push, and plan tomorrow.</span></li>
-        </ul>
-    `;
-
-    const grid = document.getElementById('calendar-grid');
-
-    for (let i = 0; i < 30; i++) {
-        let currentDay = new Date(startDate);
-        currentDay.setDate(startDate.getDate() + i);
-        
-        let dateString = currentDay.toISOString().split('T')[0];
-        let dayOfWeek = currentDay.getDay(); // 0 is Sunday
-        
-        let isHoliday = holidays[dateString] || dayOfWeek === 0;
-        let holidayName = holidays[dateString] ? holidays[dateString] : (dayOfWeek === 0 ? "Sunday" : "");
-        
-        let cardClass = isHoliday ? "day-card holiday" : "day-card";
-        let tagHtml = isHoliday ? \`<span class="tag holiday">\${holidayName} - Extra Hours</span>\` : \`<span class="tag">Regular Day</span>\`;
-        let scheduleHtml = isHoliday ? holidaySchedule : regularSchedule;
-
-        let formattedDate = currentDay.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-
-        let cardHtml = \`
-            <div class="\${cardClass}">
-                <div class="day-header">
-                    <span class="date">Day \${i + 1}: \${formattedDate}</span>
-                    \${tagHtml}
-                </div>
-                \${scheduleHtml}
-            </div>
-        \`;
-        
-        grid.innerHTML += cardHtml;
-    }
-</script>
+    <table>
+        <thead>
+            <tr>
+                <th>Day</th>
+                <th>Date</th>
+                <th>Schedule Type</th>
+                <th>Daily Topic & Goal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>1</td><td>Mar 19 (Thu)</td><td><span class="tag-holiday">Ugadi (Full Day)</span></td><td>Stop Go. Setup Python environment. Start Array basics (Insertion/Deletion).</td></tr>
+            <tr><td>2</td><td>Mar 20 (Fri)</td><td><span class="tag-holiday">Ramzan (Full Day)</span></td><td>Arrays & Strings. Implement Two-Pointer technique. Python Lists.</td></tr>
+            <tr><td>3</td><td>Mar 21 (Sat)</td><td><span class="tag-regular">College Day</span></td><td>Array Problems (Sliding Window concept). Python Dictionaries.</td></tr>
+            <tr><td>4</td><td>Mar 22 (Sun)</td><td><span class="tag-holiday">Sunday (Full Day)</span></td><td>Deep dive: Matrix operations in C vs Python. Build a basic API endpoint.</td></tr>
+            <tr><td>5</td><td>Mar 23 (Mon)</td><td><span class="tag-regular">College Day</span></td><td>Linked Lists: Single list traversal and reversal.</td></tr>
+            <tr><td>6</td><td>Mar 24 (Tue)</td><td><span class="tag-regular">College Day</span></td><td>Linked Lists: Fast & Slow pointers. Python decorators overview.</td></tr>
+            <tr><td>7</td><td>Mar 25 (Wed)</td><td><span class="tag-regular">College Day</span></td><td>Stacks: Array and Linked List implementation. Time complexity review.</td></tr>
+            <tr><td>8</td><td>Mar 26 (Thu)</td><td><span class="tag-holiday">Sri Rama Navami (Full Day)</span></td><td>Queues & Deques. Intro to NumPy for ML math. Integrate new HTML to Maxtube.</td></tr>
+            <tr><td>9</td><td>Mar 27 (Fri)</td><td><span class="tag-regular">College Day</span></td><td>Hashing: Hash maps basics. Solving Two-Sum optimally.</td></tr>
+            <tr><td>10</td><td>Mar 28 (Sat)</td><td><span class="tag-regular">College Day</span></td><td>Hashing: Collision resolution concepts. Reading 1 ML fundamental article.</td></tr>
+            <tr><td>11</td><td>Mar 29 (Sun)</td><td><span class="tag-holiday">Sunday (Full Day)</span></td><td>Review Week! Re-solve 5 hardest problems. Connect DB to your FastAPI project.</td></tr>
+            <tr><td>12</td><td>Mar 30 (Mon)</td><td><span class="tag-regular">College Day</span></td><td>Recursion: Base cases, Call stack memory understanding.</td></tr>
+            <tr><td>13</td><td>Mar 31 (Tue)</td><td><span class="tag-regular">College Day</span></td><td>Recursion: Fibonacci and factorial problem-solving. Pandas library intro.</td></tr>
+            <tr><td>14</td><td>Apr 1 (Wed)</td><td><span class="tag-regular">College Day</span></td><td>Basic Sorting: Bubble, Insertion, and Selection sort concepts.</td></tr>
+            <tr><td>15</td><td>Apr 2 (Thu)</td><td><span class="tag-regular">College Day</span></td><td>Advanced Sorting: Merge sort logic. Python List Comprehensions.</td></tr>
+            <tr><td>16</td><td>Apr 3 (Fri)</td><td><span class="tag-holiday">Good Friday (Full Day)</span></td><td>Advanced Sorting: Quick sort. Applying Linear Algebra to basic ML datasets.</td></tr>
+            <tr><td>17</td><td>Apr 4 (Sat)</td><td><span class="tag-regular">College Day</span></td><td>Binary Search: Iterative vs Recursive approaches.</td></tr>
+            <tr><td>18</td><td>Apr 5 (Sun)</td><td><span class="tag-holiday">Sunday (Full Day)</span></td><td>Trees: Basic terminology. Pre, In, Post-order traversal. EPOCH-ZERO code cleanup.</td></tr>
+            <tr><td>19</td><td>Apr 6 (Mon)</td><td><span class="tag-regular">College Day</span></td><td>Binary Search Trees (BST): Insertion and lookup logic.</td></tr>
+            <tr><td>20</td><td>Apr 7 (Tue)</td><td><span class="tag-regular">College Day</span></td><td>BST: Deletion logic. ML Concept: What is Linear Regression?</td></tr>
+            <tr><td>21</td><td>Apr 8 (Wed)</td><td><span class="tag-regular">College Day</span></td><td>Heaps: Max heap vs Min heap concepts. Priority Queues.</td></tr>
+            <tr><td>22</td><td>Apr 9 (Thu)</td><td><span class="tag-regular">College Day</span></td><td>Graphs: Adjacency matrix vs list representation.</td></tr>
+            <tr><td>23</td><td>Apr 10 (Fri)</td><td><span class="tag-regular">College Day</span></td><td>Graphs: Breadth-First Search (BFS) implementation.</td></tr>
+            <tr><td>24</td><td>Apr 11 (Sat)</td><td><span class="tag-regular">College Day</span></td><td>Graphs: Depth-First Search (DFS) implementation.</td></tr>
+            <tr><td>25</td><td>Apr 12 (Sun)</td><td><span class="tag-holiday">Sunday (Full Day)</span></td><td>Full day project sprint: Build a mini feature using Python/ML logic for an existing app.</td></tr>
+            <tr><td>26</td><td>Apr 13 (Mon)</td><td><span class="tag-regular">College Day</span></td><td>Dynamic Programming (Intro): Memoization vs Tabulation.</td></tr>
+            <tr><td>27</td><td>Apr 14 (Tue)</td><td><span class="tag-holiday">Ambedkar Jayanti (Full Day)</span></td><td>DP: Solve climbing stairs and coin change problems. Refine project UI.</td></tr>
+            <tr><td>28</td><td>Apr 15 (Wed)</td><td><span class="tag-regular">College Day</span></td><td>Bit Manipulation: AND, OR, XOR operations for optimization.</td></tr>
+            <tr><td>29</td><td>Apr 16 (Thu)</td><td><span class="tag-regular">College Day</span></td><td>Mock Interview Prep: Solve 2 random Medium difficulty problems.</td></tr>
+            <tr><td>30</td><td>Apr 17 (Fri)</td><td><span class="tag-regular">College Day</span></td><td>Plan next 30 days. Assess Python/ML readiness. Finalize current project version.</td></tr>
+        </tbody>
+    </table>
 
 </body>
 </html>
