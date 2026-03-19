@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>30 Day Grind Plan</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #0f172a;
+      color: white;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .day {
+      background: #1e293b;
+      padding: 15px;
+      margin: 12px 0;
+      border-radius: 10px;
+    }
+    .topic {
+      padding: 6px;
+      margin: 3px 0;
+      background: #334155;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .topic:hover {
+      background: #475569;
+    }
+    textarea {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 5px;
+      padding: 6px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>🚀 30 Day Grind Plan</h1>
+<div id="container"></div>
+
+<script>
+const plan = [
+
+/* ---------- DAYS 1–10 (FOUNDATION) ---------- */
+{day:1,dsa:["array basics in C","time complexity big O arrays"],python:["python variables data types","python input output"],ml:["what is machine learning","types supervised unsupervised"]},
+{day:2,dsa:["array reverse in C","find max min array"],python:["python for loop while loop","range function python"],ml:["dataset features labels","csv dataset explanation"]},
+{day:3,dsa:["two pointer technique arrays","two sum problem"],python:["python functions tutorial","return vs print"],ml:["train test split sklearn"]},
+{day:4,dsa:["sliding window technique","maximum subarray kadane"],python:["python lists tutorial","list methods append remove"],ml:["overfitting vs underfitting"]},
+{day:5,dsa:["prefix sum array","range sum query"],python:["python tuples","tuple vs list"],ml:["linear regression intuition"]},
+{day:6,dsa:["best time to buy sell stock problem","move zeroes array"],python:["python dictionary tutorial","dict operations"],ml:["linear regression sklearn implementation"]},
+{day:7,dsa:["array practice leetcode easy","two sum variations"],python:["python revision basics"],ml:["revision ML basics"]},
+
+{day:8,dsa:["string basics in C","string reverse palindrome"],python:["python oops basics"],ml:["vectors in machine learning"]},
+{day:9,dsa:["valid anagram problem","character frequency array"],python:["python classes objects"],ml:["matrices basics"]},
+{day:10,dsa:["pattern matching strings","substring problems"],python:["python modules import"],ml:["matrix multiplication"]},
+
+/* ---------- DAYS 11–20 (INTERMEDIATE) ---------- */
+{day:11,dsa:["hashing basics","frequency map"],python:["numpy basics array creation"],ml:["mean variance standard deviation"]},
+{day:12,dsa:["unordered map usage","count distinct elements"],python:["numpy operations"],ml:["probability basics ML"]},
+{day:13,dsa:["string problems leetcode easy","group anagrams"],python:["pandas basics dataframe"],ml:["regression vs classification"]},
+{day:14,dsa:["revision arrays strings"],python:["revision python"],ml:["revision ML"]},
+
+{day:15,dsa:["linked list basics","create linked list C"],python:["pandas dataframe operations"],ml:["implement linear regression from scratch"]},
+{day:16,dsa:["reverse linked list","middle of linked list"],python:["matplotlib basics plot"],ml:["plot regression graph"]},
+{day:17,dsa:["linked list cycle detection","fast slow pointer"],python:["data cleaning pandas"],ml:["train model sklearn"]},
+{day:18,dsa:["mixed problems arrays strings"],python:["python revision"],ml:["model evaluation accuracy"]},
+{day:19,dsa:["timed practice leetcode easy","2 problems"],python:["python practice"],ml:["improve model tuning"]},
+{day:20,dsa:["mixed DSA problems"],python:["python practice"],ml:["start mini project ML"]},
+
+/* ---------- DAYS 21–30 (ADVANCED + PROJECT) ---------- */
+{day:21,dsa:["revision linked list arrays"],python:["revision"],ml:["revision"]},
+
+{day:22,dsa:["light practice"],python:["project setup python"],ml:["choose dataset kaggle"]},
+{day:23,dsa:["light practice"],python:["load dataset pandas"],ml:["data cleaning preprocessing"]},
+{day:24,dsa:["light practice"],python:["feature selection"],ml:["train model"]},
+{day:25,dsa:["light practice"],python:["model evaluation"],ml:["accuracy precision recall"]},
+{day:26,dsa:["light practice"],python:["data visualization matplotlib"],ml:["visualize results"]},
+{day:27,dsa:["revision"],python:["project improvement"],ml:["final model"]},
+{day:28,dsa:["revision"],python:["upload project github"],ml:["write documentation"]},
+{day:29,dsa:["solve 10 leetcode easy"],python:["revision"],ml:["revision"]},
+{day:30,dsa:["full revision"],python:["full revision"],ml:["plan next month"]}
+
+];
+
+const container = document.getElementById("container");
+
+// load saved data
+let savedData = JSON.parse(localStorage.getItem("progress")) || {};
+
+function makeList(arr) {
+  return arr.map(topic => `
+    <div class="topic" onclick="copyText('${topic}')">
+      🔍 ${topic}
+    </div>
+  `).join("");
+}
+
+plan.forEach(p => {
+  const div = document.createElement("div");
+  div.className = "day";
+
+  const noteKey = "note_" + p.day;
+
+  div.innerHTML = `
+    <h3>Day ${p.day}</h3>
+
+    <b>DSA:</b>
+    ${makeList(p.dsa)}
+
+    <b>Python:</b>
+    ${makeList(p.python)}
+
+    <b>ML:</b>
+    ${makeList(p.ml)}
+
+    <textarea placeholder="Notes...">${savedData[noteKey] || ""}</textarea>
+  `;
+
+  const textarea = div.querySelector("textarea");
+  textarea.oninput = () => {
+    savedData[noteKey] = textarea.value;
+    localStorage.setItem("progress", JSON.stringify(savedData));
+  };
+
+  container.appendChild(div);
+});
+
+// copy function
+function copyText(text) {
+  navigator.clipboard.writeText(text);
+  alert("Copied: " + text);
+}
+</script>
+
+</body>
+</html>
