@@ -1,11 +1,11 @@
 // app.js
-// Version 5.1: Balanced Overdrive (No Bonus XP, Purely for Schedule Flexibility)
+// Version 6.0: Time-Based Auto-Unlock (Zero Extra XP)
 
 const container = document.getElementById('days-container');
 const XP_BASE = 50; const XP_LATE = 25; const PENALTY_PER_DAY = 10;
 
 let appState = JSON.parse(localStorage.getItem('pathState')) || { 
-    startDate: null, progress: {}, lastLogin: null, manualUnlocks: 0 
+    startDate: null, progress: {}, lastLogin: null 
 };
 
 function getPastDateString(daysAgo) { let d = new Date(); d.setDate(d.getDate() - daysAgo); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
@@ -22,10 +22,37 @@ function calculateStreak() {
     return streak;
 }
 
-function getMaxAllowedDay() {
-    const todayStr = getTodayString();
-    const calendarDay = daysBetween(appState.startDate, todayStr) + 1;
-    return calendarDay + (appState.manualUnlocks || 0);
+// THE TIME ENGINE: Reads your clock, unlocks automatically if you have time.
+function getDynamicMaxDay(currentDayNumber) {
+    let maxAllowedDay = currentDayNumber;
+    let hoursLeftToday = 24 - new Date().getHours();
+    let allDoneSoFar = true;
+
+    // Check if current day is 100% done
+    for (let i = 1; i <= currentDayNumber; i++) {
+        const d = learningPath.find(x => x.day === i);
+        if (d) d.subtopics.forEach((_, idx) => { if (!appState.progress[`day${i}-task${idx}`]) allDoneSoFar = false; });
+    }
+
+    if (allDoneSoFar) {
+        let checkDay = currentDayNumber + 1;
+        while (checkDay <= learningPath.length) {
+            const nextDay = learningPath.find(d => d.day === checkDay);
+            if (!nextDay) break;
+            let estHours = nextDay.subtopics.length * 1; // 1 hour per subtopic
+            
+            if (hoursLeftToday >= estHours) {
+                maxAllowedDay = checkDay; 
+                hoursLeftToday -= estHours; 
+                checkDay++;
+                
+                let bonusDone = true;
+                nextDay.subtopics.forEach((_, idx) => { if (!appState.progress[`day${nextDay.day}-task${idx}`]) bonusDone = false; });
+                if (!bonusDone) break;
+            } else break;
+        }
+    }
+    return maxAllowedDay;
 }
 
 function init() {
@@ -42,17 +69,9 @@ function saveState() { localStorage.setItem('pathState', JSON.stringify(appState
 function renderApp() {
     const todayStr = getTodayString();
     const calendarDay = daysBetween(appState.startDate, todayStr) + 1;
-    const maxAllowedDay = getMaxAllowedDay();
+    const maxAllowedDay = getDynamicMaxDay(calendarDay);
     
     let totalXP = 0; let completedTasksCount = 0; container.innerHTML = '';
-
-    let currentDayFinished = true;
-    const currentDayData = learningPath.find(d => d.day === maxAllowedDay);
-    if (currentDayData) {
-        currentDayData.subtopics.forEach((_, i) => {
-            if (!appState.progress[`day${maxAllowedDay}-task${i}`]) currentDayFinished = false;
-        });
-    }
 
     learningPath.forEach((dayData) => {
         const card = document.createElement('div'); card.className = 'day-card';
@@ -60,7 +79,7 @@ function renderApp() {
         
         if (dayData.day > maxAllowedDay) { 
             status = 'locked'; statusText = '(Locked)'; isLocked = true; badgeColor = 'var(--text-muted)'; 
-        } else if (dayData.day > calendarDay) {
+        } else if (dayData.day > calendarDay && dayData.day <= maxAllowedDay) {
             status = 'today'; statusText = '⚡ OVERDRIVE'; badgeColor = 'var(--warning)';
             card.style.borderColor = 'var(--warning)'; card.classList.add('active');
         } else if (dayData.day === calendarDay) {
@@ -87,7 +106,7 @@ function renderApp() {
             let taskDisplay = '';
             if (taskData) {
                 completedTasksCount++;
-                // Removed the +20 bonus logic here. Standard XP applies.
+                // Pure base XP. No extra points.
                 const earnedXP = taskData.status === 'on-time' ? XP_BASE : XP_LATE;
                 totalXP += earnedXP;
                 taskDisplay = `<span class="xp-tag">+${earnedXP} XP</span>`;
@@ -119,18 +138,6 @@ function renderApp() {
         });
         card.appendChild(header); card.appendChild(subList); container.appendChild(card);
     });
-
-    if (currentDayFinished && maxAllowedDay < learningPath.length) {
-        const overdriveBtn = document.createElement('button');
-        // Removed the text mentioning the bonus XP
-        overdriveBtn.innerText = "🚀 Finish line reached! Unlock Next Day?";
-        overdriveBtn.style = "width: 100%; padding: 1rem; margin-top: 1rem; background: var(--warning); color: var(--bg-color); border: none; border-radius: 8px; font-weight: bold; cursor: pointer;";
-        overdriveBtn.onclick = () => {
-            appState.manualUnlocks = (appState.manualUnlocks || 0) + 1;
-            saveState(); renderApp();
-        };
-        container.appendChild(overdriveBtn);
-    }
 
     updateGamificationUI(totalXP, calculateStreak()); updateProgressUI(completedTasksCount);
 }
