@@ -59,11 +59,17 @@ function init() {
     const today = getTodayString();
     if (!appState.startDate) appState.startDate = today;
     appState.lastLogin = today; saveState();
-    document.getElementById('date-display').innerText = `System Time: ${new Date().toLocaleTimeString()} | ${today}`;
+    
+    // THE FIX: Live Clock Update
+    function updateClock() {
+        document.getElementById('date-display').innerText = `System Time: ${new Date().toLocaleTimeString()} | ${getTodayString()}`;
+    }
+    setInterval(updateClock, 1000); // Ticks every 1 second
+    updateClock(); // Initialize immediately on load
+
     totalTasksInCurriculum = learningPath.reduce((acc, day) => acc + day.subtopics.length, 0);
     renderApp(); renderChart();
 }
-
 function saveState() { localStorage.setItem('pathState', JSON.stringify(appState)); }
 
 function renderApp() {
