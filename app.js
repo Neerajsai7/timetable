@@ -1,79 +1,168 @@
 // app.js
-
-// 1. Setup variables
 const container = document.getElementById('days-container');
-let totalTasks = 0;
-let completedTasks = 0;
-let progressData = JSON.parse(localStorage.getItem('pathProgress')) || {};
-let chartInstance = null;
 
-// 2. Initialization Function
-function init() {
-    renderDays();
-    calculateProgress();
-    renderChart();
+// Game Mechanics Constants
+const XP_BASE = 50;
+const XP_LATE = 25;
+const PENALTY_PER_DAY = 10;
+
+// State Management
+let appState = JSON.parse(localStorage.getItem('pathState')) || {
+    startDate: null,
+    progress: {}, // { "day1-task0": { completedAt: "YYYY-MM-DD", status: "on-time" | "late" } }
+    lastLogin: null,
+    currentStreak: 0
+};
+
+// Date Utility Functions
+function getTodayString() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-// 3. Render the UI from data.js
-function renderDays() {
-    container.innerHTML = ''; // Clear container
-    
-    learningPath.forEach((dayData, dayIndex) => {
-        // Count tasks for total
-        totalTasks += dayData.subtopics.length;
+function daysBetween(date1, date2) {
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+    const diffTime = d2 - d1;
+    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+}
 
-        // Create Day Card
+// Initialization
+function init() {
+    const today = getTodayString();
+    
+    // First time opening the app? Set today as Day 1.
+    if (!appState.startDate) {
+        appState.startDate = today;
+    }
+
+    // Check Streak Logic
+    if (appState.lastLogin && appState.lastLogin !== today) {
+        const daysMissed = daysBetween(appState.lastLogin, today);
+        if (daysMissed > 1) {
+            appState.currentStreak = 0; // Broke the streak
+        }
+    }
+    appState.lastLogin = today;
+    saveState();
+
+    document.getElementById('date-display').innerText = `Active Date: ${today}`;
+    
+    renderApp();
+}
+
+function saveState() {
+    localStorage.setItem('pathState', JSON.stringify(appState));
+}
+
+function renderApp() {
+    const todayStr = getTodayString();
+    // Calculate which "Day Number" we are currently on based on start date
+    const currentDayNumber = daysBetween(appState.startDate, todayStr) + 1;
+    
+    let totalXP = 0;
+    container.innerHTML = '';
+
+    learningPath.forEach((dayData) => {
         const card = document.createElement('div');
         card.className = 'day-card';
         
+        // Determine Status: Locked (Future), Today, or Overdue (Past)
+        let status = '';
+        let statusText = '';
+        if (dayData.day > currentDayNumber) {
+            status = 'locked';
+            statusText = '(Locked)';
+        } else if (dayData.day === currentDayNumber) {
+            status = 'today';
+            statusText = '(Today)';
+            card.classList.add('active'); // Auto-expand today
+        } else {
+            // It's in the past. Check if all tasks are done.
+            let allDone = true;
+            dayData.subtopics.forEach((_, i) => {
+                if (!appState.progress[`day${dayData.day}-task${i}`]) allDone = false;
+            });
+            if (!allDone) {
+                status = 'overdue';
+                statusText = '⚠️ OVERDUE';
+                card.classList.add('active'); // Auto-expand overdue
+            } else {
+                status = 'completed';
+            }
+        }
+
+        card.classList.add(status);
+
         // Header
         const header = document.createElement('div');
         header.className = 'day-header';
         header.innerHTML = `
             <h3>
                 <span class="day-badge">Day ${dayData.day}</span>
-                ${dayData.topic}
-                <span class="phase-badge">| ${dayData.phase}</span>
+                ${dayData.topic} 
+                <span style="margin-left: 10px; font-size: 0.8rem; font-weight: bold;">${statusText}</span>
             </h3>
-            <span style="color: var(--text-muted); font-size: 0.8rem;">▼ Expand</span>
         `;
         
-        // Expand/Collapse logic
-        header.addEventListener('click', () => {
-            card.classList.toggle('active');
-        });
+        header.addEventListener('click', () => { if(status !== 'locked') card.classList.toggle('active'); });
 
-        // Subtopics List
+        // Subtopics
         const subList = document.createElement('div');
         subList.className = 'subtopics-list';
 
-        dayData.subtopics.forEach((sub, subIndex) => {
-            const taskId = `day${dayData.day}-task${subIndex}`;
-            const isChecked = progressData[taskId] ? 'checked' : '';
+        dayData.subtopics.forEach((sub, i) => {
+            const taskId = `day${dayData.day}-task${i}`;
+            const taskData = appState.progress[taskId];
+            const isChecked = taskData ? 'checked' : '';
             
+            // Calculate XP for this specific task
+            let taskDisplay = '';
+            if (taskData) {
+                // Task is finished
+                const earnedXP = taskData.status === 'on-time' ? XP_BASE : XP_LATE;
+                totalXP += earnedXP;
+                taskDisplay = `<span class="xp-tag">+${earnedXP} XP</span>`;
+            } else if (status === 'overdue') {
+                // Task is unfinished and overdue
+                const daysLate = currentDayNumber - dayData.day;
+                const penalty = daysLate * PENALTY_PER_DAY;
+                totalXP -= penalty;
+                taskDisplay = `<span class="penalty-tag">-${penalty} XP (Bleeding)</span>`;
+            } else if (status === 'locked') {
+                taskDisplay = `<span class="xp-tag">🔒</span>`;
+            } else {
+                taskDisplay = `<span class="xp-tag">+${XP_BASE} XP possible</span>`;
+            }
+
             const item = document.createElement('div');
             item.className = 'subtopic-item';
-            
             item.innerHTML = `
-                <input type="checkbox" id="${taskId}" ${isChecked}>
+                <input type="checkbox" id="${taskId}" ${isChecked} ${status === 'locked' ? 'disabled' : ''}>
                 <label for="${taskId}" class="${isChecked ? 'completed-text' : ''}">${sub}</label>
+                ${taskDisplay}
             `;
 
-            // Checkbox logic
+            // Handle Checking a box
             const checkbox = item.querySelector('input');
-            const label = item.querySelector('label');
-            
             checkbox.addEventListener('change', (e) => {
                 if (e.target.checked) {
-                    progressData[taskId] = true;
-                    label.classList.add('completed-text');
+                    // Mark as complete
+                    const completionStatus = (dayData.day < currentDayNumber) ? 'late' : 'on-time';
+                    appState.progress[taskId] = { completedAt: todayStr, status: completionStatus };
+                    
+                    // Streak Check: Increase streak if they complete a task today
+                    if (appState.lastLogin === todayStr) {
+                        // Just an easy way to bump streak once per day upon first task completion
+                        appState.currentStreak += 1; 
+                    }
                 } else {
-                    delete progressData[taskId];
-                    label.classList.remove('completed-text');
+                    // Uncheck
+                    delete appState.progress[taskId];
+                    appState.currentStreak = Math.max(0, appState.currentStreak - 1); // Remove streak point
                 }
-                saveProgress();
-                calculateProgress();
-                updateChart();
+                saveState();
+                renderApp(); // Re-render to update XP math
             });
 
             subList.appendChild(item);
@@ -83,90 +172,25 @@ function renderDays() {
         card.appendChild(subList);
         container.appendChild(card);
     });
+
+    updateGamificationUI(totalXP, appState.currentStreak);
 }
 
-// 4. Calculate Overall Progress
-function calculateProgress() {
-    completedTasks = Object.keys(progressData).length;
-    let percentage = 0;
-    
-    if (totalTasks > 0) {
-        percentage = Math.round((completedTasks / totalTasks) * 100);
+function updateGamificationUI(xp, streak) {
+    // Level Math: Level 1 starts at 0 XP. Every 500 XP is a new level.
+    let currentLevel = 1;
+    if (xp > 0) {
+        currentLevel = Math.floor(xp / 500) + 1;
     }
 
-    // Update UI
-    document.getElementById('percentage-display').innerText = `${percentage}%`;
-    document.getElementById('tasks-completed-display').innerText = `${completedTasks} / ${totalTasks} Tasks Completed`;
-    document.getElementById('main-progress-bar').style.width = `${percentage}%`;
+    let titles = ["Novice", "Apprentice", "Coder", "Architect", "Master", "Grandmaster"];
+    let title = titles[Math.min(currentLevel - 1, titles.length - 1)];
+
+    document.getElementById('xp-display').innerText = xp;
+    document.getElementById('level-display').innerText = currentLevel;
+    document.getElementById('level-title').innerText = title;
+    document.getElementById('streak-display').innerText = `${streak} 🔥`;
 }
 
-// 5. Save to Local Storage
-function saveProgress() {
-    localStorage.setItem('pathProgress', JSON.stringify(progressData));
-}
-
-// 6. Render Chart.js
-function renderChart() {
-    const ctx = document.getElementById('progressChart').getContext('2d');
-    
-    // Create an array of data points: [0, progress_day_1, progress_day_2...]
-    // For simplicity in this tracker, we map completion over the days mapped out.
-    let labels = learningPath.map(d => `Day ${d.day}`);
-    let dataPoints = calculateCumulativeProgress();
-
-    chartInstance = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Tasks Completed',
-                data: dataPoints,
-                borderColor: '#3b82f6',
-                backgroundColor: 'rgba(59, 130, 246, 0.2)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.3,
-                pointBackgroundColor: '#10b981'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true, suggestedMax: totalTasks, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-            },
-            plugins: {
-                legend: { labels: { color: '#f8fafc' } }
-            }
-        }
-    });
-}
-
-function updateChart() {
-    if (chartInstance) {
-        chartInstance.data.datasets[0].data = calculateCumulativeProgress();
-        chartInstance.update();
-    }
-}
-
-function calculateCumulativeProgress() {
-    let cumulative = [];
-    let currentTotal = 0;
-    
-    learningPath.forEach(day => {
-        // Check how many tasks in THIS day are completed
-        let dayTasksCompleted = 0;
-        day.subtopics.forEach((sub, index) => {
-            if (progressData[`day${day.day}-task${index}`]) {
-                dayTasksCompleted++;
-            }
-        });
-        currentTotal += dayTasksCompleted;
-        cumulative.push(currentTotal);
-    });
-    return cumulative;
-}
-
-// Boot up the app
+// Start
 init();
