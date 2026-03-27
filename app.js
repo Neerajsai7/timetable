@@ -1,7 +1,7 @@
 // app.js
 const container = document.getElementById('days-container');
 
-// Game Mechanics Constants
+// Game Mechanics
 const XP_BASE = 50;
 const XP_LATE = 25;
 const PENALTY_PER_DAY = 10;
@@ -9,38 +9,33 @@ const PENALTY_PER_DAY = 10;
 // State Management
 let appState = JSON.parse(localStorage.getItem('pathState')) || {
     startDate: null,
-    progress: {}, // { "day1-task0": { completedAt: "YYYY-MM-DD", status: "on-time" | "late" } }
+    progress: {}, 
     lastLogin: null,
     currentStreak: 0
 };
 
-// Date Utility Functions
+let chartInstance = null;
+let totalTasksInCurriculum = 0;
+
+// Date Utilities
 function getTodayString() {
     const d = new Date();
     return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
-
 function daysBetween(date1, date2) {
     const d1 = new Date(date1);
     const d2 = new Date(date2);
-    const diffTime = d2 - d1;
-    return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    return Math.floor((d2 - d1) / (1000 * 60 * 60 * 24));
 }
 
 // Initialization
 function init() {
     const today = getTodayString();
-    
-    // First time opening the app? Set today as Day 1.
-    if (!appState.startDate) {
-        appState.startDate = today;
-    }
+    if (!appState.startDate) appState.startDate = today;
 
-    // Check Streak Logic
     if (appState.lastLogin && appState.lastLogin !== today) {
-        const daysMissed = daysBetween(appState.lastLogin, today);
-        if (daysMissed > 1) {
-            appState.currentStreak = 0; // Broke the streak
+        if (daysBetween(appState.lastLogin, today) > 1) {
+            appState.currentStreak = 0; // Streak broken
         }
     }
     appState.lastLogin = today;
@@ -48,7 +43,11 @@ function init() {
 
     document.getElementById('date-display').innerText = `Active Date: ${today}`;
     
+    // Count total tasks once
+    totalTasksInCurriculum = learningPath.reduce((acc, day) => acc + day.subtopics.length, 0);
+
     renderApp();
+    renderChart();
 }
 
 function saveState() {
@@ -57,54 +56,45 @@ function saveState() {
 
 function renderApp() {
     const todayStr = getTodayString();
-    // Calculate which "Day Number" we are currently on based on start date
     const currentDayNumber = daysBetween(appState.startDate, todayStr) + 1;
     
     let totalXP = 0;
+    let completedTasksCount = 0;
     container.innerHTML = '';
 
     learningPath.forEach((dayData) => {
         const card = document.createElement('div');
         card.className = 'day-card';
         
-        // Determine Status: Locked (Future), Today, or Overdue (Past)
         let status = '';
         let statusText = '';
+        
         if (dayData.day > currentDayNumber) {
-            status = 'locked';
-            statusText = '(Locked)';
+            status = 'locked'; statusText = '(Locked)';
         } else if (dayData.day === currentDayNumber) {
-            status = 'today';
-            statusText = '(Today)';
-            card.classList.add('active'); // Auto-expand today
+            status = 'today'; statusText = '(Today)';
+            card.classList.add('active');
         } else {
-            // It's in the past. Check if all tasks are done.
             let allDone = true;
             dayData.subtopics.forEach((_, i) => {
                 if (!appState.progress[`day${dayData.day}-task${i}`]) allDone = false;
             });
             if (!allDone) {
-                status = 'overdue';
-                statusText = '⚠️ OVERDUE';
-                card.classList.add('active'); // Auto-expand overdue
+                status = 'overdue'; statusText = '⚠️ OVERDUE';
+                card.classList.add('active');
             } else {
                 status = 'completed';
             }
         }
-
         card.classList.add(status);
 
         // Header
         const header = document.createElement('div');
         header.className = 'day-header';
         header.innerHTML = `
-            <h3>
-                <span class="day-badge">Day ${dayData.day}</span>
-                ${dayData.topic} 
-                <span style="margin-left: 10px; font-size: 0.8rem; font-weight: bold;">${statusText}</span>
-            </h3>
+            <h3><span class="day-badge">Day ${dayData.day}</span> ${dayData.topic} 
+            <span style="margin-left: 10px; font-size: 0.8rem; font-weight: bold;">${statusText}</span></h3>
         `;
-        
         header.addEventListener('click', () => { if(status !== 'locked') card.classList.toggle('active'); });
 
         // Subtopics
@@ -116,15 +106,13 @@ function renderApp() {
             const taskData = appState.progress[taskId];
             const isChecked = taskData ? 'checked' : '';
             
-            // Calculate XP for this specific task
             let taskDisplay = '';
             if (taskData) {
-                // Task is finished
+                completedTasksCount++;
                 const earnedXP = taskData.status === 'on-time' ? XP_BASE : XP_LATE;
                 totalXP += earnedXP;
                 taskDisplay = `<span class="xp-tag">+${earnedXP} XP</span>`;
             } else if (status === 'overdue') {
-                // Task is unfinished and overdue
                 const daysLate = currentDayNumber - dayData.day;
                 const penalty = daysLate * PENALTY_PER_DAY;
                 totalXP -= penalty;
@@ -143,54 +131,95 @@ function renderApp() {
                 ${taskDisplay}
             `;
 
-            // Handle Checking a box
             const checkbox = item.querySelector('input');
             checkbox.addEventListener('change', (e) => {
                 if (e.target.checked) {
-                    // Mark as complete
                     const completionStatus = (dayData.day < currentDayNumber) ? 'late' : 'on-time';
                     appState.progress[taskId] = { completedAt: todayStr, status: completionStatus };
-                    
-                    // Streak Check: Increase streak if they complete a task today
-                    if (appState.lastLogin === todayStr) {
-                        // Just an easy way to bump streak once per day upon first task completion
-                        appState.currentStreak += 1; 
-                    }
+                    if (appState.lastLogin === todayStr) appState.currentStreak += 1; 
                 } else {
-                    // Uncheck
                     delete appState.progress[taskId];
-                    appState.currentStreak = Math.max(0, appState.currentStreak - 1); // Remove streak point
+                    appState.currentStreak = Math.max(0, appState.currentStreak - 1);
                 }
                 saveState();
-                renderApp(); // Re-render to update XP math
+                renderApp(); 
+                updateChart(); // Update graph on click
             });
-
             subList.appendChild(item);
         });
-
         card.appendChild(header);
         card.appendChild(subList);
         container.appendChild(card);
     });
 
     updateGamificationUI(totalXP, appState.currentStreak);
+    updateProgressUI(completedTasksCount);
 }
 
 function updateGamificationUI(xp, streak) {
-    // Level Math: Level 1 starts at 0 XP. Every 500 XP is a new level.
-    let currentLevel = 1;
-    if (xp > 0) {
-        currentLevel = Math.floor(xp / 500) + 1;
-    }
-
+    let currentLevel = xp > 0 ? Math.floor(xp / 500) + 1 : 1;
     let titles = ["Novice", "Apprentice", "Coder", "Architect", "Master", "Grandmaster"];
-    let title = titles[Math.min(currentLevel - 1, titles.length - 1)];
-
+    
     document.getElementById('xp-display').innerText = xp;
     document.getElementById('level-display').innerText = currentLevel;
-    document.getElementById('level-title').innerText = title;
+    document.getElementById('level-title').innerText = titles[Math.min(currentLevel - 1, titles.length - 1)];
     document.getElementById('streak-display').innerText = `${streak} 🔥`;
 }
 
-// Start
+function updateProgressUI(completed) {
+    let percentage = totalTasksInCurriculum > 0 ? Math.round((completed / totalTasksInCurriculum) * 100) : 0;
+    document.getElementById('percentage-display').innerText = `${percentage}%`;
+    document.getElementById('tasks-completed-display').innerText = `${completed} / ${totalTasksInCurriculum} Tasks Completed`;
+    document.getElementById('main-progress-bar').style.width = `${percentage}%`;
+}
+
+// Chart.js Logic
+function renderChart() {
+    const ctx = document.getElementById('progressChart').getContext('2d');
+    let labels = learningPath.map(d => `Day ${d.day}`);
+    let dataPoints = calculateCumulativeProgress();
+
+    chartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Cumulative Tasks Finished',
+                data: dataPoints,
+                borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                borderWidth: 2, fill: true, tension: 0.3, pointBackgroundColor: '#10b981', pointRadius: 1
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true, suggestedMax: totalTasksInCurriculum, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                x: { grid: { color: '#334155' }, ticks: { display: false } } // Hide X labels if too crowded
+            },
+            plugins: { legend: { labels: { color: '#f8fafc' } } }
+        }
+    });
+}
+
+function updateChart() {
+    if (chartInstance) {
+        chartInstance.data.datasets[0].data = calculateCumulativeProgress();
+        chartInstance.update();
+    }
+}
+
+function calculateCumulativeProgress() {
+    let cumulative = [];
+    let currentTotal = 0;
+    learningPath.forEach(day => {
+        let dayTasksCompleted = 0;
+        day.subtopics.forEach((sub, index) => {
+            if (appState.progress[`day${day.day}-task${index}`]) dayTasksCompleted++;
+        });
+        currentTotal += dayTasksCompleted;
+        cumulative.push(currentTotal);
+    });
+    return cumulative;
+}
+
 init();
