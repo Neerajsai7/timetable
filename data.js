@@ -1,91 +1,90 @@
 // data.js
 const learningPath = [
-    // --- PHASE 1: JAVA & DSA REFRESHER (Days 1-15) ---
-    { day: 1, phase: "Phase 1: Java Foundations", topic: "The Java Ecosystem", subtopics: [
-        { title: "JVM/JRE/JDK Internals", url: "https://www.geeksforgeeks.org/differences-jdk-jre-jvm/" },
-        { title: "Memory Management & Garbage Collection", url: "https://www.baeldung.com/jvm-garbage-collectors" }
-    ]},
-    { day: 2, phase: "Phase 1: Java Foundations", topic: "Variables & Data Types", subtopics: [
-        { title: "Primitives vs Objects", url: "https://www.baeldung.com/java-primitives-vs-objects" },
-        { title: "Type Casting & Wrapper Classes", url: "https://www.w3schools.com/java/java_type_casting.asp" }
-    ]},
-    ...Array.from({ length: 13 }, (_, i) => ({
-        day: 3 + i,
-        phase: "Phase 1: DSA Mastery",
-        topic: i < 7 ? "Linear DSA (Arrays, LL, Stacks)" : "Non-Linear (Trees, Graphs, DP)",
-        subtopics: [
-            { title: "Solve 2 LeetCode Mediums", url: "https://leetcode.com/" },
-            { title: "Time & Space Complexity Analysis", url: "https://www.freecodecamp.org/news/big-o-notation-guide/" }
-        ]
-    })),
-
-    // --- PHASE 2: MODERN BACKEND (SPRING BOOT) (Days 16-45) ---
-    { day: 16, phase: "Phase 2: Spring Boot", topic: "IoC & Dependency Injection", subtopics: [
-        { title: "Spring Bean Lifecycle", url: "https://www.baeldung.com/spring-bean-lifecycle" },
-        { title: "@Component vs @Bean vs @Service", url: "https://www.geeksforgeeks.org/spring-component-annotation-with-example/" }
-    ]},
-    ...Array.from({ length: 29 }, (_, i) => ({
-        day: 17 + i,
-        phase: "Phase 2: Advanced Backend",
-        topic: i < 10 ? "Spring Data JPA & Hibernate" : i < 20 ? "Spring Security & OAuth2" : "Microservices & Spring Cloud",
-        subtopics: [
-            { title: "REST API Best Practices", url: "https://restfulapi.net/" },
-            { title: "Dockerizing Spring Apps", url: "https://spring.io/guides/gs/spring-boot-docker/" }
-        ]
-    })),
-
-    // --- PHASE 3: ML FOUNDATIONS & MATH (Days 46-90) ---
-    ...Array.from({ length: 45 }, (_, i) => ({
-        day: 46 + i,
-        phase: "Phase 3: Python & ML Math",
-        topic: i < 15 ? "Linear Algebra & Calculus" : i < 30 ? "NumPy & Pandas Mastery" : "Exploratory Data Analysis (EDA)",
-        subtopics: [
-            { title: "Matrix Decomposition", url: "https://www.khanacademy.org/math/linear-algebra" },
-            { title: "Data Visualization (Matplotlib/Seaborn)", url: "https://seaborn.pydata.org/" }
-        ]
-    })),
-
-    // --- PHASE 4: CORE MACHINE LEARNING (Days 91-150) ---
+    // --- YEAR 1: THE ARCHITECT & THE MATHEMATICIAN ---
+    
+    // PHASE 1: COMPUTER SCIENCE CORE (Days 1-60)
     ...Array.from({ length: 60 }, (_, i) => ({
-        day: 91 + i,
-        phase: "Phase 4: Scikit-Learn & Modeling",
-        topic: i < 20 ? "Supervised (Regression/SVM)" : i < 40 ? "Ensemble Methods (XGBoost/RF)" : "Model Evaluation & Metrics",
+        day: 1 + i,
+        phase: "Phase 1: CS Fundamentals & Advanced Java",
+        topic: i < 30 ? "Java Concurrency & Memory Model" : "Advanced DSA (Graphs/DP/Disjoint Sets)",
         subtopics: [
-            { title: "Bias-Variance Tradeoff", url: "https://scikit-learn.org/stable/" },
-            { title: "Precision, Recall, F1-Score", url: "https://scikit-learn.org/stable/modules/model_evaluation.html" }
+            { title: "Multithreading & Executor Service", url: "https://www.baeldung.com/java-executor-service-tutorial" },
+            { title: "Java Memory Model (JMM)", url: "https://www.baeldung.com/java-jvm-memory-model" },
+            { title: "Solving LeetCode Hard (Dynamic Programming)", url: "https://leetcode.com/tag/dynamic-programming/" }
         ]
     })),
 
-    // --- PHASE 5: DEEP LEARNING & GENERATIVE AI (Days 151-220) ---
-    ...Array.from({ length: 70 }, (_, i) => ({
-        day: 151 + i,
-        phase: "Phase 5: Neural Networks & GenAI",
-        topic: i < 30 ? "CNNs & RNNs (PyTorch)" : "Transformers & LLM Fine-tuning",
+    // PHASE 2: LOW-LEVEL DESIGN & DESIGN PATTERNS (Days 61-120)
+    ...Array.from({ length: 60 }, (_, i) => ({
+        day: 61 + i,
+        phase: "Phase 2: LLD & Clean Code",
+        topic: i < 30 ? "Creational & Structural Patterns" : "Behavioral Patterns & SOLID",
         subtopics: [
-            { title: "PyTorch Tensors & Autograd", url: "https://pytorch.org/tutorials/" },
-            { title: "Attention Mechanism Deep Dive", url: "https://jalammar.github.io/illustrated-transformer/" }
+            { title: "Implementing Singleton & Factory", url: "https://refactoring.guru/design-patterns/java" },
+            { title: "Strategy & Observer Patterns", url: "https://refactoring.guru/design-patterns/behavioral-patterns" },
+            { title: "Refactoring Legacy Code", url: "https://refactoring.guru/refactoring" }
         ]
     })),
 
-    // --- PHASE 6: SYSTEM DESIGN & LLD (Days 221-270) ---
-    ...Array.from({ length: 50 }, (_, i) => ({
-        day: 221 + i,
-        phase: "Phase 6: System Design",
-        topic: i < 25 ? "Low Level Design (Design Patterns)" : "High Level Design (Scaling/Availability)",
+    // PHASE 3: THE MATHEMATICS OF AI (Days 121-240)
+    ...Array.from({ length: 120 }, (_, i) => ({
+        day: 121 + i,
+        phase: "Phase 3: Heavy Math for AI",
+        topic: i < 40 ? "Linear Algebra (Eigenvalues/SVD)" : i < 80 ? "Multivariable Calculus & Optimization" : "Probability & Statistics",
         subtopics: [
-            { title: "SOLID Principles in Java", url: "https://www.baeldung.com/solid-principles" },
-            { title: "Database Sharding & Partitioning", url: "https://github.com/donnemartin/system-design-primer" }
+            { title: "Gilbert Strang Linear Algebra", url: "https://ocw.mit.edu/courses/18-06-linear-algebra-spring-2010/" },
+            { title: "Gradient Descent Math", url: "https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html" },
+            { title: "Bayesian Statistics", url: "https://bit.ly/3x8Stats" }
         ]
     })),
 
-    // --- PHASE 7: THE FINAL PLACEMENT GRIND (Days 271-300) ---
-    ...Array.from({ length: 30 }, (_, i) => ({
-        day: 271 + i,
-        phase: "Phase 7: Interview Prep",
-        topic: "Mock Interviews & LeetCode Hard",
+    // PHASE 4: ENTERPRISE BACKEND ARCHITECTURE (Days 241-365)
+    ...Array.from({ length: 125 }, (_, i) => ({
+        day: 241 + i,
+        phase: "Phase 4: Distributed Systems & Spring Cloud",
+        topic: i < 40 ? "Microservices (Kafka/RabbitMQ)" : i < 80 ? "Database Internals (B-Trees/LSM)" : "Cloud Native (K8s/Terraform)",
         subtopics: [
-            { title: "Top 100 Liked Problems", url: "https://leetcode.com/problemset/top-100-liked-questions/" },
-            { title: "Behavioral Interview Prep (STAR Method)", url: "https://www.glassdoor.com/blog/guide/star-method/" }
+            { title: "Designing Data-Intensive Applications", url: "https://dataintensive.net/" },
+            { title: "Kubernetes Orchestration", url: "https://kubernetes.io/docs/tutorials/" },
+            { title: "Redis Caching Strategies", url: "https://redis.io/docs/manual/client-side-caching/" }
+        ]
+    })),
+
+    // --- YEAR 2: THE AI ENGINEER & THE RESEARCHER ---
+
+    // PHASE 5: DEEP LEARNING FROM SCRATCH (Days 366-500)
+    ...Array.from({ length: 135 }, (_, i) => ({
+        day: 366 + i,
+        phase: "Phase 5: Deep Learning & Computer Vision",
+        topic: i < 45 ? "Neural Nets from Scratch (Python/NumPy)" : i < 90 ? "CNNs & Object Detection" : "RNNs & LSTMs",
+        subtopics: [
+            { title: "Building Backprop in NumPy", url: "https://cs231n.github.io/optimization-2/" },
+            { title: "PyTorch Deep Dive", url: "https://pytorch.org/docs/stable/index.html" },
+            { title: "YOLO/ResNet Architectures", url: "https://arxiv.org/abs/1512.03385" }
+        ]
+    })),
+
+    // PHASE 6: NLP & GENERATIVE AI (Days 501-620)
+    ...Array.from({ length: 120 }, (_, i) => ({
+        day: 501 + i,
+        phase: "Phase 6: Transformers & LLMs",
+        topic: i < 40 ? "Attention is All You Need" : i < 80 ? "Fine-tuning (LoRA/QLoRA)" : "RAG (Vector DBs/LangChain)",
+        subtopics: [
+            { title: "The Illustrated Transformer", url: "https://jalammar.github.io/illustrated-transformer/" },
+            { title: "HuggingFace Course", url: "https://huggingface.co/learn/nlp-course/" },
+            { title: "Building RAG with Pinecone", url: "https://www.pinecone.io/learn/retrieval-augmented-generation/" }
+        ]
+    })),
+
+    // PHASE 7: MLOps & SYSTEM DESIGN (Days 621-730)
+    ...Array.from({ length: 110 }, (_, i) => ({
+        day: 621 + i,
+        phase: "Phase 7: The Masterclass",
+        topic: i < 50 ? "MLOps (MLFlow/DVC)" : "High-Level System Design (Scaling to Billions)",
+        subtopics: [
+            { title: "Continuous Delivery for ML", url: "https://ml-ops.org/" },
+            { title: "System Design Interview Prep", url: "https://github.com/donnemartin/system-design-primer" },
+            { title: "Final Mock Interview Series", url: "https://www.pramp.com/" }
         ]
     }))
 ];
