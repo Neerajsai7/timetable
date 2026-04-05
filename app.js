@@ -7,6 +7,8 @@ const XP_BASE = 50; const XP_LATE = 25; const PENALTY_PER_DAY = 10;
 let appState = JSON.parse(localStorage.getItem('pathState')) || { 
     startDate: null, progress: {}, lastLogin: null 
 };
+let chartInstance = null;
+let totalTasksInCurriculum = 0;
 
 function getPastDateString(daysAgo) { let d = new Date(); d.setDate(d.getDate() - daysAgo); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function getTodayString() { return getPastDateString(0); }
@@ -60,16 +62,17 @@ function init() {
     if (!appState.startDate) appState.startDate = today;
     appState.lastLogin = today; saveState();
     
-    // THE FIX: Live Clock Update
+    // Live Clock Update
     function updateClock() {
         document.getElementById('date-display').innerText = `System Time: ${new Date().toLocaleTimeString()} | ${getTodayString()}`;
     }
-    setInterval(updateClock, 1000); // Ticks every 1 second
-    updateClock(); // Initialize immediately on load
+    setInterval(updateClock, 1000); 
+    updateClock(); 
 
     totalTasksInCurriculum = learningPath.reduce((acc, day) => acc + day.subtopics.length, 0);
     renderApp(); renderChart();
 }
+
 function saveState() { localStorage.setItem('pathState', JSON.stringify(appState)); }
 
 function renderApp() {
@@ -112,7 +115,6 @@ function renderApp() {
             let taskDisplay = '';
             if (taskData) {
                 completedTasksCount++;
-                // Pure base XP. No extra points.
                 const earnedXP = taskData.status === 'on-time' ? XP_BASE : XP_LATE;
                 totalXP += earnedXP;
                 taskDisplay = `<span class="xp-tag">+${earnedXP} XP</span>`;
@@ -154,18 +156,61 @@ function updateGamificationUI(xp, streak) {
     document.getElementById('level-display').innerText = currentLevel;
     document.getElementById('streak-display').innerText = `${streak} 🔥`;
 }
+
 function updateProgressUI(completed) {
     let percentage = totalTasksInCurriculum > 0 ? ((completed / totalTasksInCurriculum) * 100).toFixed(1) : 0;
     document.getElementById('percentage-display').innerText = `${percentage}%`;
+    document.getElementById('tasks-completed-display').innerText = `${completed} / ${totalTasksInCurriculum} Tasks Completed`;
     document.getElementById('main-progress-bar').style.width = `${percentage}%`;
 }
+
 function renderChart() {
     const ctx = document.getElementById('progressChart').getContext('2d');
-    chartInstance = new Chart(ctx, { type: 'line', data: { labels: learningPath.map(d => `Day ${d.day}`), datasets: [{ label: 'Tasks', data: calculateCumulativeProgress(), borderColor: '#3b82f6', backgroundColor: 'rgba(59, 130, 246, 0.2)', borderWidth: 2, fill: true, tension: 0.3, pointRadius: 0 }] }, options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, suggestedMax: totalTasksInCurriculum, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }, x: { display: false } }, plugins: { legend: { display: false } } } });
+    chartInstance = new Chart(ctx, { 
+        type: 'line', 
+        data: { 
+            labels: learningPath.map(d => `Day ${d.day}`), 
+            datasets: [{ 
+                label: 'Tasks Completed', 
+                data: calculateCumulativeProgress(), 
+                borderColor: '#3b82f6', 
+                backgroundColor: 'rgba(59, 130, 246, 0.2)', 
+                borderWidth: 2, 
+                fill: true, 
+                tension: 0.3, 
+                pointRadius: 0 
+            }] 
+        }, 
+        options: { 
+            responsive: true, 
+            maintainAspectRatio: false, 
+            scales: { 
+                y: { beginAtZero: true, suggestedMax: totalTasksInCurriculum, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }, 
+                x: { display: false } 
+            }, 
+            plugins: { legend: { display: false } } 
+        } 
+    });
 }
-function updateChart() { if (chartInstance) { chartInstance.data.datasets[0].data = calculateCumulativeProgress(); chartInstance.update(); } }
+
+function updateChart() { 
+    if (chartInstance) { 
+        chartInstance.data.datasets[0].data = calculateCumulativeProgress(); 
+        chartInstance.update(); 
+    } 
+}
+
 function calculateCumulativeProgress() {
     let cumulative = [], currentTotal = 0;
-    learningPath.forEach(day => { let dayTasksCompleted = 0; day.subtopics.forEach((sub, index) => { if (appState.progress[`day${day.day}-task${index}`]) dayTasksCompleted++; }); currentTotal += dayTasksCompleted; cumulative.push(currentTotal); }); return cumulative;
+    learningPath.forEach(day => { 
+        let dayTasksCompleted = 0; 
+        day.subtopics.forEach((sub, index) => { 
+            if (appState.progress[`day${day.day}-task${index}`]) dayTasksCompleted++; 
+        }); 
+        currentTotal += dayTasksCompleted; 
+        cumulative.push(currentTotal); 
+    }); 
+    return cumulative;
 }
+
 init();
