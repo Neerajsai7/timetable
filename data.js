@@ -1,224 +1,393 @@
 // data.js
-// 365-Day Elite Pipeline: Tailored to your exact Java, Spring Boot, ML, and Systems curriculum.
+// EXACT, UNCOMPRESSED 365-DAY PIPELINE
 
-const curriculumConfig = [
-    // --- PHASE 1: JAVA FOUNDATION (Days 1-20) ---
-    { 
-        start: 1, end: 7, phase: "Java Basics", topic: "Execution & Syntax", 
-        link: "https://docs.oracle.com/javase/tutorial/getStarted/intro/definition.html", 
-        tasks: ["JDK vs JRE vs JVM", "Program Structure & main()", "Variables & Types", "Operators & Short-circuiting", "Conditionals (switch/if)", "Loops (for/while/do-while)", "Solve 10 Loop Problems"] 
-    },
-    { 
-        start: 8, end: 14, phase: "Java Data Structures", topic: "Arrays & Strings", 
-        link: "https://www.geeksforgeeks.org/arrays-in-java/", 
-        tasks: ["1D Arrays & Traversal", "Prefix Sum & Sliding Window", "2D Arrays & Matrices", "String Immutability", "StringBuilder Performance", "Palindrome & Frequency count", "Revision"] 
-    },
-    { 
-        start: 15, end: 20, phase: "Java OOP", topic: "Object Oriented Programming", 
-        link: "https://www.baeldung.com/java-oop", 
-        tasks: ["Class vs Object", "Encapsulation & Access Modifiers", "Inheritance & extends", "Polymorphism (Overload/Override)", "Abstraction & Interfaces", "OOP Mini Project"] 
-    },
+const learningPath = [
+  // --- PHASE 1: JAVA FOUNDATION ---
+  { day: 1, phase: "Phase 1: Foundation", topic: "Java Execution Model", subtopics: [{title: "JDK, JRE, JVM & Bytecode", url: "https://www.youtube.com/results?search_query=JDK+JRE+JVM+explained"}, {title: "Why Java is platform independent", url: "https://docs.oracle.com/javase/tutorial/getStarted/intro/definition.html"}] },
+  { day: 2, phase: "Phase 1: Foundation", topic: "Java Syntax + First Program", subtopics: [{title: "main() method & Class structure", url: "https://www.youtube.com/results?search_query=Java+main+method+explained"}, {title: "System.out.println & Entry logic", url: "https://docs.oracle.com/javase/tutorial/getStarted/application/index.html"}] },
+  { day: 3, phase: "Phase 1: Foundation", topic: "Variables & Data Types", subtopics: [{title: "int, float, double, char, boolean", url: "https://www.youtube.com/results?search_query=Java+variables+and+data+types"}, {title: "Memory usage & Type conversion", url: "https://www.w3schools.com/java/java_data_types.asp"}] },
+  { day: 4, phase: "Phase 1: Foundation", topic: "Operators", subtopics: [{title: "Arithmetic, Logical, Relational", url: "https://www.youtube.com/results?search_query=Java+operators+tutorial"}, {title: "Short-circuit evaluation (&& vs &)", url: "https://www.geeksforgeeks.org/operators-in-java/"}] },
+  { day: 5, phase: "Phase 1: Foundation", topic: "Conditionals", subtopics: [{title: "if-else, nested if, switch", url: "https://www.youtube.com/results?search_query=Java+if+else+switch"}, {title: "Edge cases & when to use switch", url: "https://www.w3schools.com/java/java_conditions.asp"}] },
+  { day: 6, phase: "Phase 1: Foundation", topic: "Loops", subtopics: [{title: "for, while, do-while", url: "https://www.youtube.com/results?search_query=Java+loops+tutorial"}, {title: "Infinite loops & optimization", url: "https://www.geeksforgeeks.org/loops-in-java/"}] },
+  { day: 7, phase: "Phase 1: Foundation", topic: "REVISION + PRACTICE", subtopics: [{title: "Solve 10 problems (loops + conditions)", url: "https://leetcode.com/problemset/all/?difficulty=EASY&page=1"}] },
+  { day: 8, phase: "Phase 1: Foundation", topic: "Arrays (Basics)", subtopics: [{title: "Declaration, Initialization, Traversal", url: "https://www.youtube.com/results?search_query=Java+arrays+basics"}, {title: "Indexing & Off-by-one errors", url: "https://www.w3schools.com/java/java_arrays.asp"}] },
+  { day: 9, phase: "Phase 1: Foundation", topic: "Arrays (Advanced)", subtopics: [{title: "Prefix sum & Sliding window (intro)", url: "https://www.youtube.com/results?search_query=Sliding+window+algorithm+Java"}, {title: "Pattern recognition", url: "https://www.geeksforgeeks.org/prefix-sum-array-implementation-applications-competitive-programming/"}] },
+  { day: 10, phase: "Phase 1: Foundation", topic: "2D Arrays", subtopics: [{title: "Matrix traversal, Row vs column", url: "https://www.youtube.com/results?search_query=Java+2D+arrays"}, {title: "How memory is stored in 2D", url: "https://www.geeksforgeeks.org/multidimensional-arrays-in-java/"}] },
+  { day: 11, phase: "Phase 1: Foundation", topic: "Strings Basics", subtopics: [{title: "String creation & Methods", url: "https://www.youtube.com/results?search_query=Java+String+methods"}, {title: "Immutability", url: "https://www.w3schools.com/java/java_strings.asp"}] },
+  { day: 12, phase: "Phase 1: Foundation", topic: "StringBuilder", subtopics: [{title: "Mutable strings & Performance", url: "https://www.youtube.com/results?search_query=Java+StringBuilder+tutorial"}, {title: "String vs StringBuilder", url: "https://www.geeksforgeeks.org/stringbuilder-class-in-java-with-examples/"}] },
+  { day: 13, phase: "Phase 1: Foundation", topic: "String Problems", subtopics: [{title: "Palindrome logic", url: "https://leetcode.com/problems/valid-palindrome/"}, {title: "Frequency count & logic building", url: "https://www.youtube.com/results?search_query=Java+string+frequency+count"}] },
+  { day: 14, phase: "Phase 1: Foundation", topic: "REVISION", subtopics: [{title: "Review Arrays and Strings", url: "https://github.com/"}] },
+  { day: 15, phase: "Phase 1: Foundation", topic: "OOP Intro", subtopics: [{title: "Class vs Object & Real-world mapping", url: "https://www.youtube.com/results?search_query=Java+OOP+concepts"}, {title: "OOP Basics", url: "https://www.w3schools.com/java/java_oop.asp"}] },
+  { day: 16, phase: "Phase 1: Foundation", topic: "Encapsulation", subtopics: [{title: "Access modifiers & Getters/setters", url: "https://www.youtube.com/results?search_query=Java+Encapsulation"}, {title: "Data hiding", url: "https://www.geeksforgeeks.org/encapsulation-in-java/"}] },
+  { day: 17, phase: "Phase 1: Foundation", topic: "Inheritance", subtopics: [{title: "Types & extends keyword", url: "https://www.youtube.com/results?search_query=Java+Inheritance"}, {title: "Code reuse", url: "https://www.w3schools.com/java/java_inheritance.asp"}] },
+  { day: 18, phase: "Phase 1: Foundation", topic: "Polymorphism", subtopics: [{title: "Method overloading vs Overriding", url: "https://www.youtube.com/results?search_query=Java+Polymorphism"}, {title: "Compile vs runtime", url: "https://www.geeksforgeeks.org/polymorphism-in-java/"}] },
+  { day: 19, phase: "Phase 1: Foundation", topic: "Abstraction", subtopics: [{title: "Abstract class vs Interface", url: "https://www.youtube.com/results?search_query=Java+Abstraction+and+Interfaces"}, {title: "When to use interface", url: "https://www.w3schools.com/java/java_abstract.asp"}] },
+  { day: 20, phase: "Phase 1: Foundation", topic: "OOP PRACTICE", subtopics: [{title: "Build: Simple class-based system", url: "https://github.com/"}] },
+  
+  // --- PHASE 2: JAVA BACKEND CORE ---
+  { day: 21, phase: "Phase 2: Core", topic: "Collections Intro", subtopics: [{title: "ArrayList & List interface", url: "https://www.youtube.com/results?search_query=Java+ArrayList+tutorial"}, {title: "Dynamic resizing", url: "https://www.w3schools.com/java/java_arraylist.asp"}] },
+  { day: 22, phase: "Phase 2: Core", topic: "HashMap", subtopics: [{title: "Key-value pairs & Hashing", url: "https://www.youtube.com/results?search_query=Java+HashMap+tutorial"}, {title: "Time complexity", url: "https://www.geeksforgeeks.org/java-util-hashmap-in-java-with-examples/"}] },
+  { day: 23, phase: "Phase 2: Core", topic: "HashSet", subtopics: [{title: "Unique elements & Use cases", url: "https://www.youtube.com/results?search_query=Java+HashSet"}, {title: "HashSet documentation", url: "https://www.w3schools.com/java/java_hashset.asp"}] },
+  { day: 24, phase: "Phase 2: Core", topic: "Exceptions", subtopics: [{title: "try-catch & finally", url: "https://www.youtube.com/results?search_query=Java+Exception+Handling"}, {title: "Error handling flow", url: "https://www.geeksforgeeks.org/exceptions-in-java/"}] },
+  { day: 25, phase: "Phase 2: Core", topic: "Custom Exceptions", subtopics: [{title: "Creating custom exception classes", url: "https://www.youtube.com/results?search_query=Java+Custom+Exceptions"}] },
+  { day: 26, phase: "Phase 2: Core", topic: "File Handling", subtopics: [{title: "Reading & Writing files", url: "https://www.youtube.com/results?search_query=Java+File+Handling"}, {title: "File I/O basics", url: "https://www.w3schools.com/java/java_files.asp"}] },
+  { day: 27, phase: "Phase 2: Core", topic: "Practice", subtopics: [{title: "Practice Collections & Exceptions", url: "https://github.com/"}] },
+  { day: 28, phase: "Phase 2: Core", topic: "Mini Project", subtopics: [{title: "Build command-line application", url: "https://github.com/"}] },
+  { day: 29, phase: "Phase 2: Core", topic: "Improve Project", subtopics: [{title: "Add error handling & Refactor", url: "https://github.com/"}] },
+  { day: 30, phase: "Phase 2: Core", topic: "FINAL REVISION", subtopics: [{title: "Review Java Core & OOP", url: "https://github.com/"}] },
 
-    // --- PHASE 1: COLLECTIONS & EXCEPTIONS (Days 21-30) ---
-    { 
-        start: 21, end: 30, phase: "Java Core Advanced", topic: "Collections & Handling", 
-        link: "https://www.baeldung.com/java-collections", 
-        tasks: ["ArrayList & Resizing", "HashMap & Hashing", "HashSet & Unique Elements", "try-catch-finally", "Custom Exceptions", "File Handling Basics", "Practice Exercises", "Mini Project Build", "Mini Project Refine", "Final Revision"] 
-    },
+  // --- PHASE 3: SPRING BOOT & DB ---
+  { day: 31, phase: "Phase 3: Web", topic: "Internet & Web Basics", subtopics: [{title: "Client vs Server, Request -> Response", url: "https://www.youtube.com/results?search_query=How+the+internet+works"}, {title: "DNS basics", url: "https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/How_does_the_Internet_work"}] },
+  { day: 32, phase: "Phase 3: Web", topic: "HTTP Deep Dive", subtopics: [{title: "GET, POST, PUT, DELETE & Status codes", url: "https://www.youtube.com/results?search_query=HTTP+methods+and+status+codes"}, {title: "Idempotency & Stateless nature", url: "https://restfulapi.net/http-methods/"}] },
+  { day: 33, phase: "Phase 3: Web", topic: "REST API Concepts", subtopics: [{title: "REST principles & Endpoints", url: "https://www.youtube.com/results?search_query=What+is+a+REST+API"}, {title: "Naming conventions", url: "https://restfulapi.net/"}] },
+  { day: 34, phase: "Phase 3: Web", topic: "JSON", subtopics: [{title: "JSON structure & Serialization", url: "https://www.youtube.com/results?search_query=JSON+tutorial"}, {title: "Why JSON over XML", url: "https://www.w3schools.com/js/js_json_intro.asp"}] },
+  { day: 35, phase: "Phase 3: Web", topic: "Postman Practice", subtopics: [{title: "Sending requests & Testing APIs", url: "https://www.youtube.com/results?search_query=Postman+API+testing+tutorial"}, {title: "Debugging APIs", url: "https://learning.postman.com/docs/getting-started/introduction/"}] },
+  { day: 36, phase: "Phase 3: Spring", topic: "Spring Boot Intro", subtopics: [{title: "What is Spring Boot & Project structure", url: "https://www.youtube.com/results?search_query=Spring+Boot+tutorial+for+beginners"}, {title: "Auto-configuration", url: "https://spring.io/guides/gs/spring-boot/"}] },
+  { day: 37, phase: "Phase 3: Spring", topic: "Spring Boot Setup", subtopics: [{title: "Creating project & Dependencies", url: "https://start.spring.io/"}, {title: "Maven basics", url: "https://www.youtube.com/results?search_query=Maven+tutorial+for+beginners"}] },
+  { day: 38, phase: "Phase 3: Spring", topic: "Controllers", subtopics: [{title: "@RestController & @RequestMapping", url: "https://www.youtube.com/results?search_query=Spring+Boot+RestController"}, {title: "@Controller vs @RestController", url: "https://www.baeldung.com/spring-controller-vs-restcontroller"}] },
+  { day: 39, phase: "Phase 3: Spring", topic: "Request Handling", subtopics: [{title: "@GetMapping, @PostMapping, Path variables", url: "https://www.youtube.com/results?search_query=Spring+Boot+GetMapping+PostMapping"}] },
+  { day: 40, phase: "Phase 3: Spring", topic: "Request Body", subtopics: [{title: "@RequestBody & JSON to object mapping", url: "https://www.youtube.com/results?search_query=Spring+Boot+RequestBody"}, {title: "Data binding", url: "https://www.baeldung.com/spring-request-response-body"}] },
+  { day: 41, phase: "Phase 3: Spring", topic: "Response Handling", subtopics: [{title: "ResponseEntity & Status codes", url: "https://www.youtube.com/results?search_query=Spring+Boot+ResponseEntity"}, {title: "Proper API response", url: "https://www.baeldung.com/spring-response-entity"}] },
+  { day: 42, phase: "Phase 3: Spring", topic: "REVISION + PRACTICE", subtopics: [{title: "Build simple APIs: Hello API, GET/POST", url: "https://github.com/"}] },
+  { day: 43, phase: "Phase 3: Spring", topic: "Dependency Injection 🚨", subtopics: [{title: "@Autowired & Beans", url: "https://www.youtube.com/results?search_query=Spring+Boot+Dependency+Injection"}, {title: "What is IoC", url: "https://www.baeldung.com/inversion-control-and-dependency-injection-in-spring"}] },
+  { day: 44, phase: "Phase 3: Spring", topic: "Layered Architecture 🚨", subtopics: [{title: "Controller, Service, Repository", url: "https://www.youtube.com/results?search_query=Spring+Boot+Layered+Architecture"}, {title: "Separation of concerns", url: "https://www.baeldung.com/spring-boot-architecture"}] },
+  { day: 45, phase: "Phase 3: Spring", topic: "Service Layer", subtopics: [{title: "Business logic & Clean structure", url: "https://www.youtube.com/results?search_query=Spring+Boot+Service+Layer"}] },
+  { day: 46, phase: "Phase 3: DB", topic: "Database Intro", subtopics: [{title: "RDBMS basics, Tables, rows, columns", url: "https://www.youtube.com/results?search_query=Relational+Database+Concepts"}] },
+  { day: 47, phase: "Phase 3: DB", topic: "SQL Basics", subtopics: [{title: "SELECT, INSERT, UPDATE, DELETE", url: "https://www.youtube.com/results?search_query=SQL+Basics+Tutorial"}, {title: "Query writing", url: "https://www.w3schools.com/sql/"}] },
+  { day: 48, phase: "Phase 3: DB", topic: "SQL Advanced", subtopics: [{title: "WHERE, ORDER BY, LIMIT", url: "https://www.youtube.com/results?search_query=SQL+Advanced+Queries"}] },
+  { day: 49, phase: "Phase 3: DB", topic: "JOINS 🚨", subtopics: [{title: "INNER JOIN, LEFT JOIN", url: "https://www.youtube.com/results?search_query=SQL+Joins+Explained"}, {title: "Combining tables", url: "https://www.w3schools.com/sql/sql_join.asp"}] },
+  { day: 50, phase: "Phase 3: DB", topic: "INDEXING", subtopics: [{title: "Index basics & Query performance", url: "https://www.youtube.com/results?search_query=SQL+Indexing+Explained"}] },
+  { day: 51, phase: "Phase 3: DB", topic: "REVISION + SQL PRACTICE", subtopics: [{title: "Practice SQL queries", url: "https://leetcode.com/problemset/database/"}] },
+  { day: 52, phase: "Phase 3: JPA", topic: "JPA Intro", subtopics: [{title: "ORM concept & Entities", url: "https://www.youtube.com/results?search_query=Spring+Data+JPA+Tutorial"}, {title: "DB <-> Java mapping", url: "https://www.baeldung.com/learn-jpa-hibernate"}] },
+  { day: 53, phase: "Phase 3: JPA", topic: "Entity Mapping", subtopics: [{title: "@Entity & @Id, Primary keys", url: "https://www.youtube.com/results?search_query=JPA+Entity+Mapping"}] },
+  { day: 54, phase: "Phase 3: JPA", topic: "Repository Layer", subtopics: [{title: "JpaRepository & CRUD operations", url: "https://www.youtube.com/results?search_query=Spring+Data+JpaRepository"}] },
+  { day: 55, phase: "Phase 3: JPA", topic: "Relationships 🚨", subtopics: [{title: "One-to-One, One-to-Many", url: "https://www.youtube.com/results?search_query=JPA+Relationships+One+to+Many"}, {title: "Data linking", url: "https://www.baeldung.com/hibernate-one-to-many"}] },
+  { day: 56, phase: "Phase 3: JPA", topic: "Connecting DB to Spring Boot", subtopics: [{title: "application.properties & DB config", url: "https://www.youtube.com/results?search_query=Spring+Boot+connect+to+MySQL"}] },
+  { day: 57, phase: "Phase 3: JPA", topic: "CRUD API with DB", subtopics: [{title: "Full flow: Controller -> Service -> DB", url: "https://www.youtube.com/results?search_query=Spring+Boot+CRUD+API+with+Database"}] },
+  { day: 58, phase: "Phase 3: JPA", topic: "Error Handling", subtopics: [{title: "Exception handling in APIs", url: "https://www.youtube.com/results?search_query=Spring+Boot+Exception+Handling"}] },
+  { day: 59, phase: "Phase 3: JPA", topic: "Backend Project 🚨", subtopics: [{title: "Build: User management system (CRUD)", url: "https://github.com/"}] },
+  { day: 60, phase: "Phase 3: JPA", topic: "Improve Project", subtopics: [{title: "Add Validation & Better responses", url: "https://github.com/"}] },
 
-    // --- PHASE 2: SPRING BOOT & WEB (Days 31-45) ---
-    { 
-        start: 31, end: 35, phase: "Web Basics", topic: "HTTP & REST", 
-        link: "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview", 
-        tasks: ["Client-Server & DNS", "HTTP Methods & Status Codes", "REST API Principles", "JSON Serialization", "Postman Testing API"] 
-    },
-    { 
-        start: 36, end: 45, phase: "Spring Boot Basics", topic: "Controllers & DI", 
-        link: "https://spring.io/guides/gs/rest-service/", 
-        tasks: ["Spring Boot Auto-configuration", "Project Setup & Maven", "@RestController & Mappings", "Path Variables & @GetMapping", "@RequestBody & Data Binding", "ResponseEntity & Status", "Build Simple APIs", "Dependency Injection (@Autowired)", "Layered Architecture Setup", "Service Layer Business Logic"] 
-    },
+  // --- PHASE 4: ADVANCED APIs & AUTH ---
+  { day: 61, phase: "Phase 4: Adv API", topic: "API Design Best Practices", subtopics: [{title: "Naming conventions & Versioning", url: "https://www.youtube.com/results?search_query=REST+API+Best+Practices"}, {title: "Consistency", url: "https://restfulapi.net/resource-naming/"}] },
+  { day: 62, phase: "Phase 4: Adv API", topic: "DTO Pattern 🚨", subtopics: [{title: "What is DTO, Entity vs DTO", url: "https://www.youtube.com/results?search_query=Spring+Boot+DTO+Pattern"}, {title: "Never expose DB entity directly", url: "https://www.baeldung.com/entity-to-and-from-dto-for-a-java-spring-application"}] },
+  { day: 63, phase: "Phase 4: Adv API", topic: "Validation", subtopics: [{title: "@Valid & Field validation", url: "https://www.youtube.com/results?search_query=Spring+Boot+Validation"}, {title: "Input safety", url: "https://www.baeldung.com/javax-validation"}] },
+  { day: 64, phase: "Phase 4: Adv API", topic: "Global Exception Handling 🚨", subtopics: [{title: "@ControllerAdvice & Custom errors", url: "https://www.youtube.com/results?search_query=Spring+Boot+ControllerAdvice"}, {title: "Centralized error handling", url: "https://www.baeldung.com/exception-handling-for-rest-with-spring"}] },
+  { day: 65, phase: "Phase 4: Adv API", topic: "Logging", subtopics: [{title: "Log levels (Debug vs error)", url: "https://www.youtube.com/results?search_query=Spring+Boot+Logging"}, {title: "Debugging real apps", url: "https://www.baeldung.com/spring-boot-logging"}] },
+  { day: 66, phase: "Phase 4: Auth", topic: "Authentication Basics", subtopics: [{title: "Session vs token (Stateless vs stateful)", url: "https://www.youtube.com/results?search_query=Session+vs+Token+Authentication"}] },
+  { day: 67, phase: "Phase 4: Auth", topic: "JWT Intro 🚨", subtopics: [{title: "Structure of JWT & Token flow", url: "https://www.youtube.com/results?search_query=What+is+JWT"}, {title: "Why JWT instead of sessions?", url: "https://jwt.io/introduction"}] },
+  { day: 68, phase: "Phase 4: Auth", topic: "JWT Implementation", subtopics: [{title: "Generate token & Validate token", url: "https://www.youtube.com/results?search_query=Spring+Boot+JWT+Implementation"}] },
+  { day: 69, phase: "Phase 4: Auth", topic: "Spring Security Basics", subtopics: [{title: "Security configuration & Filters", url: "https://www.youtube.com/results?search_query=Spring+Security+Tutorial"}, {title: "Protect routes", url: "https://www.baeldung.com/security-spring"}] },
+  { day: 70, phase: "Phase 4: Auth", topic: "Secure APIs", subtopics: [{title: "Role-based access", url: "https://www.youtube.com/results?search_query=Spring+Security+Role+Based+Access"}, {title: "Authorization vs authentication", url: "https://www.baeldung.com/role-and-privilege-for-a-spring-web-setup"}] },
+  { day: 71, phase: "Phase 4: Auth", topic: "REVISION + PRACTICE", subtopics: [{title: "Build: Secure API endpoints", url: "https://github.com/"}] },
+  { day: 72, phase: "Phase 4: Polish", topic: "Pagination", subtopics: [{title: "Limit & offset, Pageable", url: "https://www.youtube.com/results?search_query=Spring+Boot+Pagination"}, {title: "Handling large data", url: "https://www.baeldung.com/spring-data-jpa-pagination-sorting"}] },
+  { day: 73, phase: "Phase 4: Polish", topic: "Sorting", subtopics: [{title: "Sorting results", url: "https://www.youtube.com/results?search_query=Spring+Boot+Sorting"}] },
+  { day: 74, phase: "Phase 4: Polish", topic: "Caching Basics", subtopics: [{title: "What is caching & When to use", url: "https://www.youtube.com/results?search_query=Spring+Boot+Caching"}] },
+  { day: 75, phase: "Phase 4: Polish", topic: "Redis Intro (Optional)", subtopics: [{title: "In-memory storage", url: "https://www.youtube.com/results?search_query=Spring+Boot+Redis+Tutorial"}] },
+  { day: 76, phase: "Phase 4: Polish", topic: "Async Processing", subtopics: [{title: "@Async & Background tasks", url: "https://www.youtube.com/results?search_query=Spring+Boot+Async"}, {title: "Non-blocking APIs", url: "https://www.baeldung.com/spring-async"}] },
+  { day: 77, phase: "Phase 4: Polish", topic: "File Upload APIs", subtopics: [{title: "Multipart file handling", url: "https://www.youtube.com/results?search_query=Spring+Boot+File+Upload"}] },
+  { day: 78, phase: "Phase 4: Polish", topic: "API Documentation", subtopics: [{title: "Swagger/OpenAPI", url: "https://www.youtube.com/results?search_query=Spring+Boot+Swagger+OpenAPI"}, {title: "Developer usability", url: "https://www.baeldung.com/swagger-2-documentation-for-spring-rest-api"}] },
+  { day: 79, phase: "Phase 4: Polish", topic: "Testing Basics", subtopics: [{title: "Unit testing & Integration testing", url: "https://www.youtube.com/results?search_query=Spring+Boot+Testing+JUnit"}, {title: "Code reliability", url: "https://www.baeldung.com/spring-boot-testing"}] },
+  { day: 80, phase: "Phase 4: Polish", topic: "Debugging Skills", subtopics: [{title: "Logs & Breakpoints", url: "https://www.youtube.com/results?search_query=How+to+debug+Spring+Boot"}] },
+  { day: 81, phase: "Phase 4: Project", topic: "Mini Project Planning 🚨", subtopics: [{title: "Plan: Advanced backend system, DB design", url: "https://github.com/"}] },
+  { day: 82, phase: "Phase 4: Project", topic: "Build Project", subtopics: [{title: "Auth system (JWT)", url: "https://github.com/"}] },
+  { day: 83, phase: "Phase 4: Project", topic: "Build Project", subtopics: [{title: "CRUD APIs Part 1", url: "https://github.com/"}] },
+  { day: 84, phase: "Phase 4: Project", topic: "Build Project", subtopics: [{title: "CRUD APIs Part 2", url: "https://github.com/"}] },
+  { day: 85, phase: "Phase 4: Project", topic: "Build Project", subtopics: [{title: "Validation Layer", url: "https://github.com/"}] },
+  { day: 86, phase: "Phase 4: Project", topic: "Improve Project", subtopics: [{title: "Add Pagination", url: "https://github.com/"}] },
+  { day: 87, phase: "Phase 4: Project", topic: "Improve Project", subtopics: [{title: "Add Error handling", url: "https://github.com/"}] },
+  { day: 88, phase: "Phase 4: Project", topic: "Improve Project", subtopics: [{title: "Add Logging", url: "https://github.com/"}] },
+  { day: 89, phase: "Phase 4: Project", topic: "Testing + Fixing", subtopics: [{title: "Run Tests & Fix Bugs", url: "https://github.com/"}] },
+  { day: 90, phase: "Phase 4: Project", topic: "FINAL REVIEW 🚨", subtopics: [{title: "Explain Auth, API flow, DB integration", url: "https://github.com/"}] },
 
-    // --- PHASE 2: DATABASE & JPA (Days 46-60) ---
-    { 
-        start: 46, end: 51, phase: "Database Core", topic: "SQL Basics", 
-        link: "https://www.w3schools.com/sql/", 
-        tasks: ["RDBMS Basics & Tables", "CRUD SQL Queries", "WHERE, ORDER BY, LIMIT", "INNER & LEFT JOINS", "Indexing for Performance", "SQL Practice"] 
-    },
-    { 
-        start: 52, end: 60, phase: "Hibernate & JPA", topic: "Spring Data JPA", 
-        link: "https://www.baeldung.com/the-persistence-layer-with-spring-data-jpa", 
-        tasks: ["ORM & Entities", "@Entity & @Id Mapping", "JpaRepository Interfaces", "One-to-One & One-to-Many", "DB Configuration (application.properties)", "Full CRUD API with DB", "Exception Handling in APIs", "Backend User System Project", "Add Validation to Project"] 
-    },
+  // --- PHASE 5: PYTHON + ML FOUNDATION ---
+  { day: 91, phase: "Phase 5: Python", topic: "Python Basics", subtopics: [{title: "Variables, Data types, Clean code", url: "https://www.youtube.com/results?search_query=Python+Crash+Course"}, {title: "Why Python in AI", url: "https://docs.python.org/3/tutorial/"}] },
+  { day: 92, phase: "Phase 5: Python", topic: "Control Flow", subtopics: [{title: "if-else, loops & concise logic", url: "https://www.youtube.com/results?search_query=Python+Control+Flow"}] },
+  { day: 93, phase: "Phase 5: Python", topic: "Data Structures", subtopics: [{title: "Lists, Tuples, Sets, Dictionaries", url: "https://www.youtube.com/results?search_query=Python+Data+Structures"}, {title: "Dictionary usage", url: "https://docs.python.org/3/tutorial/datastructures.html"}] },
+  { day: 94, phase: "Phase 5: Python", topic: "Functions", subtopics: [{title: "Definition, Arguments, Return values", url: "https://www.youtube.com/results?search_query=Python+Functions"}] },
+  { day: 95, phase: "Phase 5: Python", topic: "File Handling", subtopics: [{title: "Reading/Writing files (Working with datasets)", url: "https://www.youtube.com/results?search_query=Python+File+Handling"}] },
+  { day: 96, phase: "Phase 5: Python", topic: "NumPy Basics 🚨", subtopics: [{title: "Arrays, Shape, Indexing", url: "https://www.youtube.com/results?search_query=NumPy+Tutorial"}, {title: "Why NumPy over lists", url: "https://numpy.org/doc/stable/user/absolute_beginners.html"}] },
+  { day: 97, phase: "Phase 5: Python", topic: "NumPy Operations", subtopics: [{title: "Vector operations & Broadcasting", url: "https://www.youtube.com/results?search_query=NumPy+Operations+and+Broadcasting"}] },
+  { day: 98, phase: "Phase 5: Python", topic: "Pandas Basics 🚨", subtopics: [{title: "DataFrame & Series", url: "https://www.youtube.com/results?search_query=Pandas+Tutorial"}, {title: "Real-world data handling", url: "https://pandas.pydata.org/docs/user_guide/10min.html"}] },
+  { day: 99, phase: "Phase 5: Python", topic: "Pandas Operations", subtopics: [{title: "Filtering, Grouping, Aggregation", url: "https://www.youtube.com/results?search_query=Pandas+Data+Cleaning"}] },
+  { day: 100, phase: "Phase 5: Python", topic: "Data Visualization", subtopics: [{title: "Basic plots & Understanding trends (Matplotlib)", url: "https://www.youtube.com/results?search_query=Matplotlib+Tutorial"}] },
+  { day: 101, phase: "Phase 5: Python", topic: "REVISION + PRACTICE", subtopics: [{title: "Work with a dataset (CSV)", url: "https://www.kaggle.com/datasets"}] },
+  { day: 102, phase: "Phase 5: ML", topic: "Data Preprocessing 🚨", subtopics: [{title: "Missing values & Handling nulls", url: "https://www.youtube.com/results?search_query=Machine+Learning+Data+Preprocessing"}, {title: "Garbage in = garbage out", url: "https://scikit-learn.org/stable/modules/preprocessing.html"}] },
+  { day: 103, phase: "Phase 5: ML", topic: "Encoding", subtopics: [{title: "Label encoding, One-hot encoding", url: "https://www.youtube.com/results?search_query=One+Hot+Encoding+Python"}] },
+  { day: 104, phase: "Phase 5: ML", topic: "Feature Scaling", subtopics: [{title: "Normalization & Standardization", url: "https://www.youtube.com/results?search_query=Normalization+vs+Standardization+Machine+Learning"}] },
+  { day: 105, phase: "Phase 5: ML", topic: "Train-Test Split", subtopics: [{title: "Splitting data & Avoid overfitting", url: "https://www.youtube.com/results?search_query=Train+Test+Split+Sklearn"}] },
+  { day: 106, phase: "Phase 5: ML", topic: "ML Basics", subtopics: [{title: "Supervised vs Unsupervised learning", url: "https://www.youtube.com/results?search_query=Supervised+vs+Unsupervised+Learning"}] },
+  { day: 107, phase: "Phase 5: ML", topic: "Linear Regression 🚨", subtopics: [{title: "Concept & Model training", url: "https://www.youtube.com/results?search_query=Linear+Regression+Python+Sklearn"}, {title: "Input -> Output mapping", url: "https://scikit-learn.org/stable/modules/linear_model.html"}] },
+  { day: 108, phase: "Phase 5: ML", topic: "Logistic Regression", subtopics: [{title: "Classification & Binary output", url: "https://www.youtube.com/results?search_query=Logistic+Regression+Python"}] },
+  { day: 109, phase: "Phase 5: ML", topic: "Decision Trees", subtopics: [{title: "Tree structure & Interpretability", url: "https://www.youtube.com/results?search_query=Decision+Trees+Machine+Learning"}] },
+  { day: 110, phase: "Phase 5: ML", topic: "Random Forest", subtopics: [{title: "Ensemble learning & Accuracy improvement", url: "https://www.youtube.com/results?search_query=Random+Forest+Python"}] },
+  { day: 111, phase: "Phase 5: ML", topic: "Model Evaluation 🚨", subtopics: [{title: "Accuracy, Precision, Recall, Confusion matrix", url: "https://www.youtube.com/results?search_query=Machine+Learning+Evaluation+Metrics"}] },
+  { day: 112, phase: "Phase 5: ML", topic: "Overfitting vs Underfitting", subtopics: [{title: "Model generalization & Balance", url: "https://www.youtube.com/results?search_query=Overfitting+vs+Underfitting"}] },
+  { day: 113, phase: "Phase 5: ML", topic: "Model Improvement", subtopics: [{title: "Hyperparameters & Tuning basics", url: "https://www.youtube.com/results?search_query=Hyperparameter+Tuning+GridSearchCV"}] },
+  { day: 114, phase: "Phase 5: ML", topic: "REVISION", subtopics: [{title: "Review ML algorithms", url: "https://github.com/"}] },
+  { day: 115, phase: "Phase 5: ML", topic: "ML Project Planning 🚨", subtopics: [{title: "Decide Dataset & Problem type", url: "https://www.kaggle.com/"}] },
+  { day: 116, phase: "Phase 5: ML", topic: "Build ML Project", subtopics: [{title: "Data cleaning", url: "https://github.com/"}] },
+  { day: 117, phase: "Phase 5: ML", topic: "Build ML Project", subtopics: [{title: "Model training", url: "https://github.com/"}] },
+  { day: 118, phase: "Phase 5: ML", topic: "Build ML Project", subtopics: [{title: "Evaluation", url: "https://github.com/"}] },
+  { day: 119, phase: "Phase 5: ML", topic: "Improve Project", subtopics: [{title: "Better preprocessing, Better metrics", url: "https://github.com/"}] },
+  { day: 120, phase: "Phase 5: ML", topic: "FINAL REVIEW 🚨", subtopics: [{title: "Explain model, algorithm choice, results", url: "https://github.com/"}] },
 
-    // --- PHASE 2: ADVANCED APIs & AUTH (Days 61-90) ---
-    { 
-        start: 61, end: 65, phase: "Advanced APIs", topic: "Design & Validation", 
-        link: "https://www.baeldung.com/java-dto-pattern", 
-        tasks: ["API Naming Conventions", "DTO Pattern", "Field Validation (@Valid)", "Global Exception Handling", "Logging (Debug vs Error)"] 
-    },
-    { 
-        start: 66, end: 71, phase: "Security", topic: "JWT & Spring Security", 
-        link: "https://jwt.io/introduction", 
-        tasks: ["Session vs Token Auth", "JWT Structure & Flow", "JWT Generation & Validation", "Spring Security Configuration", "Role-based Access", "Secure API Endpoints Project"] 
-    },
-    { 
-        start: 72, end: 80, phase: "API Polish", topic: "Optimization & Docs", 
-        link: "https://www.baeldung.com/spring-data-jpa-pagination-sorting", 
-        tasks: ["Pagination & Pageable", "Sorting Data", "Caching Concepts", "Redis Basics", "@Async Processing", "Multipart File Uploads", "Swagger/OpenAPI Docs", "Unit & Integration Testing", "Debugging Strategies"] 
-    },
-    { 
-        start: 81, end: 90, phase: "Project Phase", topic: "Advanced Backend Project", 
-        link: "https://spring.io/guides", 
-        tasks: ["Plan Architecture & DB", "Build JWT Auth System", "Build CRUD Endpoints", "Build Validation Layer", "Add Pagination", "Add Global Errors", "Add Logging", "Run Integration Tests", "Fix Bugs", "Final Architecture Review"] 
-    },
+  // --- PHASE 6: AI + BACKEND INTEGRATION ---
+  { day: 121, phase: "Phase 6: Integ", topic: "ML Model Recap", subtopics: [{title: "Review Input features, Output, Model file", url: "https://github.com/"}] },
+  { day: 122, phase: "Phase 6: Integ", topic: "Saving ML Models", subtopics: [{title: "Pickle / joblib, Model serialization", url: "https://www.youtube.com/results?search_query=Save+Machine+Learning+Model+Pickle"}] },
+  { day: 123, phase: "Phase 6: Integ", topic: "API Concept for ML", subtopics: [{title: "Why APIs for ML (Request -> Prediction -> Response)", url: "https://www.youtube.com/results?search_query=Machine+Learning+API+Concept"}] },
+  { day: 124, phase: "Phase 6: Integ", topic: "FastAPI Intro 🚨", subtopics: [{title: "What is FastAPI & Basic app structure", url: "https://www.youtube.com/results?search_query=FastAPI+Tutorial"}, {title: "Speed + simplicity", url: "https://fastapi.tiangolo.com/"}] },
+  { day: 125, phase: "Phase 6: Integ", topic: "First ML API", subtopics: [{title: "Create endpoint & Return prediction", url: "https://www.youtube.com/results?search_query=FastAPI+Machine+Learning+Model"}] },
+  { day: 126, phase: "Phase 6: Integ", topic: "Input Handling", subtopics: [{title: "JSON input & Data validation (Pydantic)", url: "https://fastapi.tiangolo.com/tutorial/body/"}] },
+  { day: 127, phase: "Phase 6: Integ", topic: "Error Handling in ML API", subtopics: [{title: "Invalid inputs & API failures", url: "https://fastapi.tiangolo.com/tutorial/handling-errors/"}] },
+  { day: 128, phase: "Phase 6: Integ", topic: "Testing ML API", subtopics: [{title: "Use Postman to test endpoints", url: "https://www.youtube.com/results?search_query=Test+FastAPI+with+Postman"}] },
+  { day: 129, phase: "Phase 6: Integ", topic: "Performance Basics", subtopics: [{title: "Avoid reloading model (Load on startup)", url: "https://fastapi.tiangolo.com/advanced/events/"}] },
+  { day: 130, phase: "Phase 6: Integ", topic: "Mini ML API Project 🚨", subtopics: [{title: "Build fully working ML API", url: "https://github.com/"}] },
+  { day: 131, phase: "Phase 6: Integ", topic: "Java API Calls", subtopics: [{title: "Calling external APIs & HTTP clients in Java", url: "https://www.youtube.com/results?search_query=Java+HttpClient+Tutorial"}] },
+  { day: 132, phase: "Phase 6: Integ", topic: "JSON Parsing in Java", subtopics: [{title: "Convert JSON <-> Object (Jackson)", url: "https://www.youtube.com/results?search_query=Java+Jackson+JSON"}] },
+  { day: 133, phase: "Phase 6: Integ", topic: "Connect Java to ML API 🚨", subtopics: [{title: "Send request, Receive prediction", url: "https://github.com/"}] },
+  { day: 134, phase: "Phase 6: Integ", topic: "Data Flow Understanding", subtopics: [{title: "User -> Backend -> ML -> Response", url: "https://github.com/"}] },
+  { day: 135, phase: "Phase 6: Integ", topic: "Error Handling Across Systems", subtopics: [{title: "API failure handling & Fail-safe systems", url: "https://github.com/"}] },
+  { day: 136, phase: "Phase 6: Integ", topic: "Docker Intro 🚨", subtopics: [{title: "What is Docker & Containers", url: "https://www.youtube.com/results?search_query=Docker+Tutorial+for+Beginners"}, {title: "Environment consistency", url: "https://docs.docker.com/get-started/"}] },
+  { day: 137, phase: "Phase 6: Integ", topic: "Dockerizing ML API", subtopics: [{title: "Dockerfile for Python/FastAPI", url: "https://fastapi.tiangolo.com/deployment/docker/"}] },
+  { day: 138, phase: "Phase 6: Integ", topic: "Dockerizing Java Backend", subtopics: [{title: "Container for Spring Boot backend", url: "https://spring.io/guides/gs/spring-boot-docker/"}] },
+  { day: 139, phase: "Phase 6: Integ", topic: "Running Multiple Services", subtopics: [{title: "Docker Compose (Backend + ML together)", url: "https://www.youtube.com/results?search_query=Docker+Compose+Tutorial"}] },
+  { day: 140, phase: "Phase 6: Integ", topic: "REVISION + TESTING", subtopics: [{title: "Test Dockerized System", url: "https://github.com/"}] },
+  { day: 141, phase: "Phase 6: Integ", topic: "FINAL PROJECT PLANNING 🚨", subtopics: [{title: "Plan Features, Architecture (Java + ML)", url: "https://github.com/"}] },
+  { day: 142, phase: "Phase 6: Integ", topic: "BUILD FINAL PROJECT", subtopics: [{title: "ML Model Setup", url: "https://github.com/"}] },
+  { day: 143, phase: "Phase 6: Integ", topic: "BUILD FINAL PROJECT", subtopics: [{title: "Java Backend Setup", url: "https://github.com/"}] },
+  { day: 144, phase: "Phase 6: Integ", topic: "BUILD FINAL PROJECT", subtopics: [{title: "API Integration", url: "https://github.com/"}] },
+  { day: 145, phase: "Phase 6: Integ", topic: "BUILD FINAL PROJECT", subtopics: [{title: "Database Integration", url: "https://github.com/"}] },
+  { day: 146, phase: "Phase 6: Integ", topic: "BUILD FINAL PROJECT", subtopics: [{title: "Dockerize System", url: "https://github.com/"}] },
+  { day: 147, phase: "Phase 6: Integ", topic: "Improve Project", subtopics: [{title: "Add Error handling & Logging", url: "https://github.com/"}] },
+  { day: 148, phase: "Phase 6: Integ", topic: "Performance Improvements", subtopics: [{title: "Faster responses & Efficient calls", url: "https://github.com/"}] },
+  { day: 149, phase: "Phase 6: Integ", topic: "Testing + Fixing", subtopics: [{title: "End-to-End Testing", url: "https://github.com/"}] },
+  { day: 150, phase: "Phase 6: Integ", topic: "FINAL REVIEW 🚨", subtopics: [{title: "Explain Full system architecture & Data flow", url: "https://github.com/"}] },
 
-    // --- PHASE 3: PYTHON & ML FOUNDATION (Days 91-120) ---
-    { 
-        start: 91, end: 95, phase: "Python for AI", topic: "Python Basics", 
-        link: "https://realpython.com/learning-paths/python3-crash-course/", 
-        tasks: ["Variables & Syntax", "Control Flow (if/loops)", "Lists, Tuples, Dicts", "Functions & Modularity", "File Handling (Reading Data)"] 
-    },
-    { 
-        start: 96, end: 101, phase: "Data Manipulation", topic: "NumPy & Pandas", 
-        link: "https://pandas.pydata.org/docs/user_guide/10min.html", 
-        tasks: ["NumPy Arrays & Shape", "Matrix Broadcasting", "Pandas DataFrames", "Data Filtering & Grouping", "Data Visualization (Plots)", "Dataset Practice"] 
-    },
-    { 
-        start: 102, end: 105, phase: "Data Preprocessing", topic: "Cleaning Data", 
-        link: "https://scikit-learn.org/stable/modules/preprocessing.html", 
-        tasks: ["Handling Missing Values", "Label & One-Hot Encoding", "Feature Scaling (Standardization)", "Train-Test Split"] 
-    },
-    { 
-        start: 106, end: 110, phase: "ML Algorithms", topic: "Supervised Learning", 
-        link: "https://scikit-learn.org/stable/supervised_learning.html", 
-        tasks: ["Supervised vs Unsupervised", "Linear Regression Math", "Logistic Regression", "Decision Trees", "Random Forest Ensembles"] 
-    },
-    { 
-        start: 111, end: 120, phase: "Model Evaluation", topic: "Metrics & Project", 
-        link: "https://towardsdatascience.com/metrics-to-evaluate-your-machine-learning-algorithm-f10ba6e38234", 
-        tasks: ["Accuracy, Precision, Recall", "Overfitting vs Underfitting", "Hyperparameter Tuning", "Revision", "Plan ML Project", "Clean Dataset", "Train Model", "Evaluate Results", "Improve Metrics", "Final Model Review"] 
-    },
+  // --- PHASE 7: SYSTEM DESIGN ---
+  { day: 151, phase: "Phase 7: Sys Design", topic: "What is System Design?", subtopics: [{title: "Components (client, server, DB)", url: "https://www.youtube.com/results?search_query=System+Design+Introduction"}, {title: "Big picture thinking", url: "https://github.com/donnemartin/system-design-primer"}] },
+  { day: 152, phase: "Phase 7: Sys Design", topic: "Scalability", subtopics: [{title: "Vertical scaling vs Horizontal scaling", url: "https://www.youtube.com/results?search_query=Vertical+vs+Horizontal+Scaling"}] },
+  { day: 153, phase: "Phase 7: Sys Design", topic: "Load Balancing 🚨", subtopics: [{title: "Distribution of traffic", url: "https://www.youtube.com/results?search_query=What+is+Load+Balancing"}] },
+  { day: 154, phase: "Phase 7: Sys Design", topic: "Caching 🚨", subtopics: [{title: "Cache vs DB & Reduce latency", url: "https://www.youtube.com/results?search_query=System+Design+Caching"}] },
+  { day: 155, phase: "Phase 7: Sys Design", topic: "Database Scaling", subtopics: [{title: "Read replicas & Sharding", url: "https://www.youtube.com/results?search_query=Database+Sharding"}] },
+  { day: 156, phase: "Phase 7: Sys Design", topic: "API Performance", subtopics: [{title: "Response optimization, Efficient queries", url: "https://www.youtube.com/results?search_query=API+Performance+Optimization"}] },
+  { day: 157, phase: "Phase 7: Sys Design", topic: "Rate Limiting", subtopics: [{title: "Limiting requests to prevent abuse", url: "https://www.youtube.com/results?search_query=Rate+Limiting+System+Design"}] },
+  { day: 158, phase: "Phase 7: Sys Design", topic: "Logging & Monitoring 🚨", subtopics: [{title: "Logs & Metrics for production", url: "https://www.youtube.com/results?search_query=System+Design+Logging+and+Monitoring"}] },
+  { day: 159, phase: "Phase 7: Sys Design", topic: "Fault Tolerance", subtopics: [{title: "Handling failures & Retry mechanisms", url: "https://www.youtube.com/results?search_query=System+Design+Fault+Tolerance"}] },
+  { day: 160, phase: "Phase 7: Sys Design", topic: "REVISION", subtopics: [{title: "Review System Design Concepts", url: "https://bytebytego.com/"}] },
+  { day: 161, phase: "Phase 7: Sys Design", topic: "Authentication Review", subtopics: [{title: "JWT recap & Security flow", url: "https://github.com/"}] },
+  { day: 162, phase: "Phase 7: Sys Design", topic: "Authorization", subtopics: [{title: "Roles, Permissions, Access control", url: "https://github.com/"}] },
+  { day: 163, phase: "Phase 7: Sys Design", topic: "Secure APIs", subtopics: [{title: "Data validation & Secure endpoints", url: "https://github.com/"}] },
+  { day: 164, phase: "Phase 7: Sys Design", topic: "Microservices Intro", subtopics: [{title: "Monolith vs microservices", url: "https://www.youtube.com/results?search_query=Monolith+vs+Microservices"}, {title: "When to use", url: "https://microservices.io/"}] },
+  { day: 165, phase: "Phase 7: Sys Design", topic: "Service Communication", subtopics: [{title: "API-based communication", url: "https://www.youtube.com/results?search_query=Microservices+Communication"}] },
+  { day: 166, phase: "Phase 7: Sys Design", topic: "Message Queues (Concept)", subtopics: [{title: "Async processing & Background tasks", url: "https://www.youtube.com/results?search_query=Message+Queues+Explained"}] },
+  { day: 167, phase: "Phase 7: Sys Design", topic: "Async Systems", subtopics: [{title: "Non-blocking operations & Performance boost", url: "https://github.com/"}] },
+  { day: 168, phase: "Phase 7: Sys Design", topic: "File Storage", subtopics: [{title: "Local vs cloud storage & Scalability", url: "https://www.youtube.com/results?search_query=System+Design+File+Storage"}] },
+  { day: 169, phase: "Phase 7: Sys Design", topic: "Deployment Basics", subtopics: [{title: "What is deployment & Environments", url: "https://www.youtube.com/results?search_query=Software+Deployment+Process"}] },
+  { day: 170, phase: "Phase 7: Sys Design", topic: "Cloud Basics", subtopics: [{title: "What is cloud & Basic services (AWS/GCP)", url: "https://www.youtube.com/results?search_query=Cloud+Computing+Basics"}] },
+  { day: 171, phase: "Phase 7: Sys Design", topic: "FINAL PROJECT PLANNING 🚨", subtopics: [{title: "Plan Architecture (Backend, ML, DB, Scaling)", url: "https://github.com/"}] },
+  { day: 172, phase: "Phase 7: Sys Design", topic: "BUILD FINAL SYSTEM 🚨", subtopics: [{title: "Develop AI Model Component", url: "https://github.com/"}] },
+  { day: 173, phase: "Phase 7: Sys Design", topic: "BUILD FINAL SYSTEM 🚨", subtopics: [{title: "Develop Java Backend System", url: "https://github.com/"}] },
+  { day: 174, phase: "Phase 7: Sys Design", topic: "BUILD FINAL SYSTEM 🚨", subtopics: [{title: "Implement Secure APIs", url: "https://github.com/"}] },
+  { day: 175, phase: "Phase 7: Sys Design", topic: "BUILD FINAL SYSTEM 🚨", subtopics: [{title: "Implement Scalable DB & Caching", url: "https://github.com/"}] },
+  { day: 176, phase: "Phase 7: Sys Design", topic: "BUILD FINAL SYSTEM 🚨", subtopics: [{title: "System Integration & Docker", url: "https://github.com/"}] },
+  { day: 177, phase: "Phase 7: Sys Design", topic: "Optimize System", subtopics: [{title: "Add Caching & Better DB queries", url: "https://github.com/"}] },
+  { day: 178, phase: "Phase 7: Sys Design", topic: "Test System", subtopics: [{title: "Focus on Performance & Errors", url: "https://github.com/"}] },
+  { day: 179, phase: "Phase 7: Sys Design", topic: "Debug + Improve", subtopics: [{title: "Final bug squashing", url: "https://github.com/"}] },
+  { day: 180, phase: "Phase 7: Sys Design", topic: "FINAL REVIEW 🚨", subtopics: [{title: "Explain Architecture, Scaling strategy, Trade-offs", url: "https://github.com/"}] },
 
-    // --- PHASE 4: AI + BACKEND INTEGRATION (Days 121-150) ---
-    { 
-        start: 121, end: 130, phase: "ML Deployment", topic: "FastAPI Setup", 
-        link: "https://fastapi.tiangolo.com/", 
-        tasks: ["Review ML Input/Output", "Model Serialization (Pickle)", "Why APIs for ML?", "FastAPI App Structure", "Create Prediction Endpoint", "JSON Input Validation", "ML API Error Handling", "Test via Postman", "Response Optimization", "Finish ML API App"] 
-    },
-    { 
-        start: 131, end: 135, phase: "System Communication", topic: "Java calls Python", 
-        link: "https://www.baeldung.com/java-http-request", 
-        tasks: ["HTTP Clients in Java", "JSON Parsing in Java", "Connect Java to ML API", "End-to-End Data Flow Check", "Cross-System Error Handling"] 
-    },
-    { 
-        start: 136, end: 140, phase: "Containerization", topic: "Dockerizing Systems", 
-        link: "https://docs.docker.com/get-started/", 
-        tasks: ["Docker Containers Intro", "Dockerize FastAPI", "Dockerize Java Backend", "Run Multiple Services", "System Testing"] 
-    },
-    { 
-        start: 141, end: 150, phase: "Integration Project", topic: "Full Stack AI App", 
-        link: "https://github.com/donnemartin/system-design-primer", 
-        tasks: ["Plan Full Architecture", "Setup Java Backend", "Integrate ML Endpoint", "Secure API Keys", "Build Database Layer", "Connect Services", "Add Logging & Errors", "Performance Testing", "Fix Bugs", "Final System Review"] 
-    },
+  // --- ELITE PHASE: DEEP LEARNING CORE ---
+  { day: 181, phase: "Phase 8: Deep Learning", topic: "What is Deep Learning?", subtopics: [{title: "Difference: ML vs DL & Applications", url: "https://www.youtube.com/results?search_query=What+is+Deep+Learning"}] },
+  { day: 182, phase: "Phase 8: Deep Learning", topic: "Neuron & Layers", subtopics: [{title: "Input -> weights -> output math", url: "https://www.youtube.com/results?search_query=Artificial+Neuron+Explained"}] },
+  { day: 183, phase: "Phase 8: Deep Learning", topic: "Activation Functions", subtopics: [{title: "ReLU, Sigmoid, Tanh & Non-linearity", url: "https://www.youtube.com/results?search_query=Activation+Functions+Deep+Learning"}] },
+  { day: 184, phase: "Phase 8: Deep Learning", topic: "Forward Propagation", subtopics: [{title: "Data flow through network", url: "https://www.youtube.com/results?search_query=Forward+Propagation+Neural+Networks"}] },
+  { day: 185, phase: "Phase 8: Deep Learning", topic: "Loss Functions", subtopics: [{title: "MSE, Cross-entropy", url: "https://www.youtube.com/results?search_query=Loss+Functions+Deep+Learning"}] },
+  { day: 186, phase: "Phase 8: Deep Learning", topic: "Gradient Descent 🚨", subtopics: [{title: "Learning rate & Optimization", url: "https://www.youtube.com/results?search_query=Gradient+Descent+Deep+Learning"}] },
+  { day: 187, phase: "Phase 8: Deep Learning", topic: "Backpropagation 🚨", subtopics: [{title: "Chain rule & Updating weights", url: "https://www.youtube.com/results?search_query=Backpropagation+Explained"}] },
+  { day: 188, phase: "Phase 8: Deep Learning", topic: "Overfitting in DL", subtopics: [{title: "Regularization & Dropout", url: "https://www.youtube.com/results?search_query=Regularization+and+Dropout+Deep+Learning"}] },
+  { day: 189, phase: "Phase 8: Deep Learning", topic: "PyTorch Intro", subtopics: [{title: "Tensors & Basic operations", url: "https://www.youtube.com/results?search_query=PyTorch+Tutorial+for+Beginners"}, {title: "PyTorch Docs", url: "https://pytorch.org/tutorials/"}] },
+  { day: 190, phase: "Phase 8: Deep Learning", topic: "Model Building (PyTorch)", subtopics: [{title: "Define model & Layers", url: "https://pytorch.org/tutorials/beginner/basics/buildmodel_tutorial.html"}] },
+  { day: 191, phase: "Phase 8: Deep Learning", topic: "Training Loop 🚨", subtopics: [{title: "Forward pass, Backward pass manually", url: "https://pytorch.org/tutorials/beginner/introyt/trainingyt.html"}] },
+  { day: 192, phase: "Phase 8: Deep Learning", topic: "Evaluation", subtopics: [{title: "Accuracy & Loss tracking", url: "https://pytorch.org/tutorials/beginner/introyt/modelsyt_tutorial.html"}] },
+  { day: 193, phase: "Phase 8: Deep Learning", topic: "REVISION", subtopics: [{title: "Review PyTorch syntax", url: "https://github.com/"}] },
+  { day: 194, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Setup)", url: "https://github.com/"}] },
+  { day: 195, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Data)", url: "https://github.com/"}] },
+  { day: 196, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Model)", url: "https://github.com/"}] },
+  { day: 197, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Training Loop)", url: "https://github.com/"}] },
+  { day: 198, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Evaluation)", url: "https://github.com/"}] },
+  { day: 199, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Fixing issues)", url: "https://github.com/"}] },
+  { day: 200, phase: "Phase 8: Deep Learning", topic: "MINI DL PROJECT", subtopics: [{title: "Build: Simple neural network (Finalize)", url: "https://github.com/"}] },
+  { day: 201, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Add: Better tuning", url: "https://github.com/"}] },
+  { day: 202, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Add: Visualization", url: "https://github.com/"}] },
+  { day: 203, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Add: Error analysis", url: "https://github.com/"}] },
+  { day: 204, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Refactor Model Code", url: "https://github.com/"}] },
+  { day: 205, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Hyperparameter tuning iteration 1", url: "https://github.com/"}] },
+  { day: 206, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Hyperparameter tuning iteration 2", url: "https://github.com/"}] },
+  { day: 207, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Documenting Model Architecture", url: "https://github.com/"}] },
+  { day: 208, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Exporting weights", url: "https://github.com/"}] },
+  { day: 209, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Testing exported model", url: "https://github.com/"}] },
+  { day: 210, phase: "Phase 8: Deep Learning", topic: "IMPROVE PROJECT", subtopics: [{title: "Final Push to GitHub", url: "https://github.com/"}] },
 
-    // --- PHASE 5: SYSTEM DESIGN (Days 151-180) ---
-    { 
-        start: 151, end: 160, phase: "System Design", topic: "Scalability Core", 
-        link: "https://bytebytego.com/", 
-        tasks: ["Big Picture Client-Server", "Vertical vs Horizontal Scaling", "Load Balancing", "Caching Strategies", "Database Read Replicas", "API Performance", "Rate Limiting", "Logging & Metrics", "Fault Tolerance", "Revision"] 
-    },
-    { 
-        start: 161, end: 170, phase: "Microservices", topic: "Advanced Architectures", 
-        link: "https://microservices.io/", 
-        tasks: ["JWT & Auth Flow Recap", "Role Permissions", "Data Validation Security", "Monolith vs Microservices", "Service-to-Service APIs", "Message Queues Concept", "Async Processing Systems", "Cloud Storage (S3)", "Deployment Environments", "AWS/Cloud Basics"] 
-    },
-    { 
-        start: 171, end: 180, phase: "Final System", topic: "Scale Ready AI", 
-        link: "https://roadmap.sh/backend", 
-        tasks: ["Plan Scalable AI System", "Build AI Model", "Build Java Services", "Secure with Auth", "Implement Database", "Add Queue/Async", "Implement Caching", "Stress Test Load", "Debug Performance", "Final Architecture Defense"] 
-    },
+  // --- ELITE PHASE: CV + NLP ---
+  { day: 211, phase: "Phase 9: Specialization", topic: "CNN Basics 🚨", subtopics: [{title: "Convolution & Filters", url: "https://www.youtube.com/results?search_query=CNN+Convolution+and+Filters"}, {title: "Feature extraction", url: "https://cs231n.github.io/convolutional-networks/"}] },
+  { day: 212, phase: "Phase 9: Specialization", topic: "CNN Layers", subtopics: [{title: "Pooling & Flattening", url: "https://www.youtube.com/results?search_query=CNN+Pooling+Layer"}] },
+  { day: 213, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Dataset Setup)", url: "https://github.com/"}] },
+  { day: 214, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Data Augmentation)", url: "https://github.com/"}] },
+  { day: 215, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (CNN Architecture)", url: "https://github.com/"}] },
+  { day: 216, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Training)", url: "https://github.com/"}] },
+  { day: 217, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Evaluation)", url: "https://github.com/"}] },
+  { day: 218, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Tuning)", url: "https://github.com/"}] },
+  { day: 219, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (Export)", url: "https://github.com/"}] },
+  { day: 220, phase: "Phase 9: Specialization", topic: "IMAGE PROJECT", subtopics: [{title: "Build: Image classifier (API Integration)", url: "https://github.com/"}] },
+  { day: 221, phase: "Phase 9: Specialization", topic: "NLP Basics", subtopics: [{title: "Text preprocessing", url: "https://www.youtube.com/results?search_query=NLP+Text+Preprocessing"}] },
+  { day: 222, phase: "Phase 9: Specialization", topic: "Tokenization", subtopics: [{title: "Word & Subword Tokenization", url: "https://www.youtube.com/results?search_query=NLP+Tokenization"}] },
+  { day: 223, phase: "Phase 9: Specialization", topic: "Embeddings", subtopics: [{title: "Word2Vec, GloVe concepts", url: "https://www.youtube.com/results?search_query=Word+Embeddings+NLP"}] },
+  { day: 224, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Dataset)", url: "https://github.com/"}] },
+  { day: 225, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Preprocessing)", url: "https://github.com/"}] },
+  { day: 226, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Tokenization/Embedding)", url: "https://github.com/"}] },
+  { day: 227, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Model Base)", url: "https://github.com/"}] },
+  { day: 228, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Training)", url: "https://github.com/"}] },
+  { day: 229, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Evaluation)", url: "https://github.com/"}] },
+  { day: 230, phase: "Phase 9: Specialization", topic: "NLP PROJECT", subtopics: [{title: "Build: Sentiment analysis (Finalize)", url: "https://github.com/"}] },
+  { day: 231, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Optimize Image Classifier API", url: "https://github.com/"}] },
+  { day: 232, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Optimize NLP API", url: "https://github.com/"}] },
+  { day: 233, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Integrate Both to Backend System", url: "https://github.com/"}] },
+  { day: 234, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Write Dockerfiles for New Models", url: "https://github.com/"}] },
+  { day: 235, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Test Docker Compose", url: "https://github.com/"}] },
+  { day: 236, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Handle concurrent inference requests", url: "https://github.com/"}] },
+  { day: 237, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Add caching for common predictions", url: "https://github.com/"}] },
+  { day: 238, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Stress testing the models", url: "https://github.com/"}] },
+  { day: 239, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Fix integration bugs", url: "https://github.com/"}] },
+  { day: 240, phase: "Phase 9: Specialization", topic: "IMPROVE PROJECTS", subtopics: [{title: "Final Review of CV & NLP integration", url: "https://github.com/"}] },
 
-    // --- PHASE 6: DEEP LEARNING CORE (Days 181-210) ---
-    { 
-        start: 181, end: 190, phase: "Deep Learning Base", topic: "Neural Networks", 
-        link: "https://www.3blue1brown.com/topics/neural-networks", 
-        tasks: ["DL vs ML Concepts", "Neurons & Weights", "Activation Functions", "Forward Propagation", "Loss Functions", "Gradient Descent Math", "Backpropagation Intuition", "Overfitting & Dropout", "PyTorch Tensors", "Building PyTorch Layers"] 
-    },
-    { 
-        start: 191, end: 210, phase: "Training", topic: "PyTorch & DL Projects", 
-        link: "https://pytorch.org/tutorials/beginner/basics/intro.html", 
-        tasks: ["Custom Training Loops", "Loss Tracking", "DL Revision", "Plan Neural Network", "Build Dataset Generator", "Write Training Script", "Track Gradients", "Save Model State", "Test Predictions", "Visualize Output", "Improve Architecture", "Hyperparameter Tuning", "Evaluate Accuracy", "Refine Code", "Final DL Project Review", "Review Errors", "Review Overfitting", "Check Matrix Shapes", "Optimize Code", "Freeze Dependencies"] 
-    },
+  // --- ELITE PHASE: ADVANCED BACKEND + SYSTEMS ---
+  { day: 241, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "Decomposing Monolith Strategy", url: "https://microservices.io/patterns/decomposition/decompose-by-business-capability.html"}] },
+  { day: 242, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "API Gateways", url: "https://microservices.io/patterns/apigateway.html"}] },
+  { day: 243, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "Service Discovery (Eureka)", url: "https://www.youtube.com/results?search_query=Spring+Boot+Eureka"}] },
+  { day: 244, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "Inter-service Communication (OpenFeign)", url: "https://www.youtube.com/results?search_query=Spring+Boot+OpenFeign"}] },
+  { day: 245, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "Circuit Breakers (Resilience4j)", url: "https://www.youtube.com/results?search_query=Spring+Boot+Resilience4j"}] },
+  { day: 246, phase: "Phase 10: Adv Systems", topic: "Microservices Deep Dive", subtopics: [{title: "Distributed Tracing (Zipkin/Sleuth)", url: "https://www.youtube.com/results?search_query=Spring+Boot+Distributed+Tracing"}] },
+  { day: 247, phase: "Phase 10: Adv Systems", topic: "Messaging Queues", subtopics: [{title: "RabbitMQ Basics", url: "https://www.youtube.com/results?search_query=RabbitMQ+Tutorial"}] },
+  { day: 248, phase: "Phase 10: Adv Systems", topic: "Messaging Queues", subtopics: [{title: "Spring Boot + RabbitMQ Integration", url: "https://www.youtube.com/results?search_query=Spring+Boot+RabbitMQ"}] },
+  { day: 249, phase: "Phase 10: Adv Systems", topic: "Messaging Queues", subtopics: [{title: "Kafka Concepts (Topics, Brokers)", url: "https://www.youtube.com/results?search_query=Apache+Kafka+Tutorial"}] },
+  { day: 250, phase: "Phase 10: Adv Systems", topic: "Messaging Queues", subtopics: [{title: "Spring Boot + Kafka Integration", url: "https://www.youtube.com/results?search_query=Spring+Boot+Kafka"}] },
+  { day: 251, phase: "Phase 10: Adv Systems", topic: "Messaging Queues", subtopics: [{title: "Event-Driven Architecture", url: "https://www.youtube.com/results?search_query=Event+Driven+Architecture"}] },
+  { day: 252, phase: "Phase 10: Adv Systems", topic: "Advanced DB", subtopics: [{title: "Database Indexing Deep Dive (B-Trees)", url: "https://use-the-index-luke.com/"}] },
+  { day: 253, phase: "Phase 10: Adv Systems", topic: "Advanced DB", subtopics: [{title: "ACID Properties & Transactions", url: "https://www.youtube.com/results?search_query=ACID+Properties+Database"}] },
+  { day: 254, phase: "Phase 10: Adv Systems", topic: "Advanced DB", subtopics: [{title: "Isolation Levels", url: "https://www.youtube.com/results?search_query=Database+Isolation+Levels"}] },
+  { day: 255, phase: "Phase 10: Adv Systems", topic: "Advanced DB", subtopics: [{title: "CQRS Pattern Intro", url: "https://microservices.io/patterns/data/cqrs.html"}] },
+  { day: 256, phase: "Phase 10: Adv Systems", topic: "Advanced DB", subtopics: [{title: "Event Sourcing", url: "https://microservices.io/patterns/data/event-sourcing.html"}] },
+  { day: 257, phase: "Phase 10: Adv Systems", topic: "Performance", subtopics: [{title: "Connection Pooling (HikariCP)", url: "https://www.youtube.com/results?search_query=HikariCP+Spring+Boot"}] },
+  { day: 258, phase: "Phase 10: Adv Systems", topic: "Performance", subtopics: [{title: "Redis Distributed Caching", url: "https://www.youtube.com/results?search_query=Redis+Distributed+Cache"}] },
+  { day: 259, phase: "Phase 10: Adv Systems", topic: "Performance", subtopics: [{title: "JVM Tuning Basics", url: "https://www.youtube.com/results?search_query=JVM+Performance+Tuning"}] },
+  { day: 260, phase: "Phase 10: Adv Systems", topic: "Performance", subtopics: [{title: "Profiling Java Apps", url: "https://www.youtube.com/results?search_query=Java+Profiling"}] },
+  { day: 261, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Project Architecture Design", url: "https://github.com/"}] },
+  { day: 262, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Setup API Gateway & Eureka", url: "https://github.com/"}] },
+  { day: 263, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Build User Microservice", url: "https://github.com/"}] },
+  { day: 264, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Build Order/Core Microservice", url: "https://github.com/"}] },
+  { day: 265, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Integrate Kafka for Event Streaming", url: "https://github.com/"}] },
+  { day: 266, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Implement Async Email/Notification Service", url: "https://github.com/"}] },
+  { day: 267, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Add Redis Caching", url: "https://github.com/"}] },
+  { day: 268, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Secure with JWT across services", url: "https://github.com/"}] },
+  { day: 269, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Setup Databases for Microservices", url: "https://github.com/"}] },
+  { day: 270, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Dockerize all 5+ services", url: "https://github.com/"}] },
+  { day: 271, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Write Docker Compose file", url: "https://github.com/"}] },
+  { day: 272, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Test Inter-service communication", url: "https://github.com/"}] },
+  { day: 273, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Simulate service failure (Resilience testing)", url: "https://github.com/"}] },
+  { day: 274, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Monitor with Zipkin", url: "https://github.com/"}] },
+  { day: 275, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Load Test with JMeter", url: "https://github.com/"}] },
+  { day: 276, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Fix bottlenecks found in testing", url: "https://github.com/"}] },
+  { day: 277, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Refactor Database Queries", url: "https://github.com/"}] },
+  { day: 278, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Implement proper pagination globally", url: "https://github.com/"}] },
+  { day: 279, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Final Code Cleanup & Documentation", url: "https://github.com/"}] },
+  { day: 280, phase: "Phase 10: Adv Systems", topic: "Scalable Backend Project", subtopics: [{title: "Push Microservices to GitHub", url: "https://github.com/"}] },
+  { day: 281, phase: "Phase 10: Adv Systems", topic: "Kubernetes Basics", subtopics: [{title: "Intro to K8s (Pods, Nodes, Clusters)", url: "https://www.youtube.com/results?search_query=Kubernetes+in+5+minutes"}] },
+  { day: 282, phase: "Phase 10: Adv Systems", topic: "Kubernetes Basics", subtopics: [{title: "Deployments & Services", url: "https://www.youtube.com/results?search_query=Kubernetes+Deployments"}] },
+  { day: 283, phase: "Phase 10: Adv Systems", topic: "Kubernetes Basics", subtopics: [{title: "Ingress Controllers", url: "https://www.youtube.com/results?search_query=Kubernetes+Ingress"}] },
+  { day: 284, phase: "Phase 10: Adv Systems", topic: "Kubernetes Basics", subtopics: [{title: "Writing YAML configs", url: "https://kubernetes.io/docs/concepts/overview/working-with-objects/kubernetes-objects/"}] },
+  { day: 285, phase: "Phase 10: Adv Systems", topic: "Kubernetes Integration", subtopics: [{title: "Deploy Microservices Project to Minikube", url: "https://github.com/"}] },
+  { day: 286, phase: "Phase 10: Adv Systems", topic: "Kubernetes Integration", subtopics: [{title: "Expose Gateway via Ingress", url: "https://github.com/"}] },
+  { day: 287, phase: "Phase 10: Adv Systems", topic: "Kubernetes Integration", subtopics: [{title: "Scale Pods & Test Load Balancing", url: "https://github.com/"}] },
+  { day: 288, phase: "Phase 10: Adv Systems", topic: "Cloud Deployment", subtopics: [{title: "AWS EC2 Setup", url: "https://www.youtube.com/results?search_query=AWS+EC2+Tutorial"}] },
+  { day: 289, phase: "Phase 10: Adv Systems", topic: "Cloud Deployment", subtopics: [{title: "AWS RDS Setup for Database", url: "https://www.youtube.com/results?search_query=AWS+RDS+Tutorial"}] },
+  { day: 290, phase: "Phase 10: Adv Systems", topic: "Cloud Deployment", subtopics: [{title: "Deploying Docker to EC2", url: "https://www.youtube.com/results?search_query=Deploy+Docker+to+AWS+EC2"}] },
+  { day: 291, phase: "Phase 10: Adv Systems", topic: "CI/CD Basics", subtopics: [{title: "GitHub Actions Intro", url: "https://www.youtube.com/results?search_query=GitHub+Actions+Tutorial"}] },
+  { day: 292, phase: "Phase 10: Adv Systems", topic: "CI/CD Pipeline", subtopics: [{title: "Write build pipeline for Java backend", url: "https://github.com/"}] },
+  { day: 293, phase: "Phase 10: Adv Systems", topic: "CI/CD Pipeline", subtopics: [{title: "Automate Docker Image push to DockerHub", url: "https://github.com/"}] },
+  { day: 294, phase: "Phase 10: Adv Systems", topic: "Security Best Practices", subtopics: [{title: "Environment Variables Management", url: "https://www.youtube.com/results?search_query=Managing+Environment+Variables+Security"}] },
+  { day: 295, phase: "Phase 10: Adv Systems", topic: "Security Best Practices", subtopics: [{title: "HTTPS & SSL Certificates", url: "https://www.youtube.com/results?search_query=How+SSL+Works"}] },
+  { day: 296, phase: "Phase 10: Adv Systems", topic: "System Design Practice", subtopics: [{title: "Design a URL Shortener", url: "https://www.youtube.com/results?search_query=System+Design+URL+Shortener"}] },
+  { day: 297, phase: "Phase 10: Adv Systems", topic: "System Design Practice", subtopics: [{title: "Design a Chat System", url: "https://www.youtube.com/results?search_query=System+Design+Chat+Application"}] },
+  { day: 298, phase: "Phase 10: Adv Systems", topic: "System Design Practice", subtopics: [{title: "Design Netflix (Video Streaming)", url: "https://www.youtube.com/results?search_query=System+Design+Netflix"}] },
+  { day: 299, phase: "Phase 10: Adv Systems", topic: "System Design Practice", subtopics: [{title: "Design Uber/Ola", url: "https://www.youtube.com/results?search_query=System+Design+Uber"}] },
+  { day: 300, phase: "Phase 10: Adv Systems", topic: "Final System Architecture Review", subtopics: [{title: "Review all Microservices & Cloud concepts", url: "https://bytebytego.com/"}] },
 
-    // --- PHASE 7: SPECIALIZATION CV + NLP (Days 211-240) ---
-    { 
-        start: 211, end: 220, phase: "Computer Vision", topic: "CNN Architecture", 
-        link: "https://cs231n.github.io/convolutional-networks/", 
-        tasks: ["Convolution & Filters", "Pooling & Flattening", "Setup CV Dataset", "Build CNN Architecture", "Train Image Classifier", "Evaluate Visual Model", "Tune CNN Parameters", "Test Edge Cases", "Export Model", "CV Wrap-up"] 
-    },
-    { 
-        start: 221, end: 240, phase: "NLP", topic: "Language Models", 
-        link: "https://huggingface.co/learn/nlp-course/", 
-        tasks: ["Text Preprocessing", "Tokenization Techniques", "Word Embeddings", "Plan NLP Project", "Gather Text Data", "Build RNN/LSTM Base", "Train Sentiment Analyzer", "Evaluate Predictions", "Tune Embeddings", "Export NLP Model", "Review NLP Logic", "Test Custom Inputs", "Refactor Code", "Build API Wrapper", "Integrate to Backend", "Test Endpoints", "Handle Text Errors", "Scale Model Load", "Optimize NLP Speed", "Final Project Complete"] 
-    },
-
-    // --- PHASE 8: ADVANCED BACKEND + SYSTEMS (Days 241-300) ---
-    { 
-        start: 241, end: 300, phase: "Elite Backend", topic: "Microservices & Queues", 
-        link: "https://kafka.apache.org/documentation/", 
-        tasks: ["Decompose Monolith", "Configure API Gateway", "Service Registry", "Implement Kafka/RabbitMQ", "Event Driven AI Triggers", "CQRS Pattern Concepts", "Database Indexing Deep Dive", "Sharding Implementation", "Distributed Tracing", "Build Scalable Architecture Project... (Continuous Development)"] 
-    },
-
-    // --- PHASE 9: REAL AI ENGINEERING (Days 301-365) ---
-    { 
-        start: 301, end: 365, phase: "The Climax", topic: "MLOps & AI SaaS", 
-        link: "https://ml-ops.org/", 
-        tasks: ["Model Versioning (DVC)", "CI/CD Deployment Pipelines", "Data Drift Monitoring", "LLM Prompt Engineering", "Vector DB & RAG Setup", "Plan AI SaaS Final Master Project", "Architect Cloud Infra", "Code Multi-tenant Backend", "Deploy ML Microservice", "Launch Product... (Continuous Development)"] 
-    }
+  // --- ELITE PHASE: REAL AI ENGINEERING & MASTER PROJECT ---
+  { day: 301, phase: "Phase 11: Real AI", topic: "MLOps Intro", subtopics: [{title: "What is MLOps", url: "https://www.youtube.com/results?search_query=What+is+MLOps"}] },
+  { day: 302, phase: "Phase 11: Real AI", topic: "Model Versioning", subtopics: [{title: "DVC (Data Version Control)", url: "https://www.youtube.com/results?search_query=DVC+Tutorial"}] },
+  { day: 303, phase: "Phase 11: Real AI", topic: "Experiment Tracking", subtopics: [{title: "MLflow Basics", url: "https://www.youtube.com/results?search_query=MLflow+Tutorial"}] },
+  { day: 304, phase: "Phase 11: Real AI", topic: "Automated Training", subtopics: [{title: "CI/CD for Machine Learning", url: "https://www.youtube.com/results?search_query=CI+CD+for+Machine+Learning"}] },
+  { day: 305, phase: "Phase 11: Real AI", topic: "Monitoring", subtopics: [{title: "Data Drift & Concept Drift", url: "https://www.youtube.com/results?search_query=Data+Drift+Machine+Learning"}] },
+  { day: 306, phase: "Phase 11: Real AI", topic: "Monitoring", subtopics: [{title: "Model Decay Handling", url: "https://www.youtube.com/results?search_query=Handling+Model+Decay"}] },
+  { day: 307, phase: "Phase 11: Real AI", topic: "LLM Integration", subtopics: [{title: "OpenAI / Anthropic APIs Intro", url: "https://platform.openai.com/docs/introduction"}] },
+  { day: 308, phase: "Phase 11: Real AI", topic: "LLM Integration", subtopics: [{title: "Prompt Engineering Basics", url: "https://www.youtube.com/results?search_query=Prompt+Engineering+Guide"}] },
+  { day: 309, phase: "Phase 11: Real AI", topic: "LLM Integration", subtopics: [{title: "System Prompts & Temperature", url: "https://platform.openai.com/docs/guides/prompt-engineering"}] },
+  { day: 310, phase: "Phase 11: Real AI", topic: "LLM Integration", subtopics: [{title: "Function Calling with LLMs", url: "https://platform.openai.com/docs/guides/function-calling"}] },
+  { day: 311, phase: "Phase 11: Real AI", topic: "Vector Databases", subtopics: [{title: "What are Vector DBs (Pinecone, Milvus)", url: "https://www.youtube.com/results?search_query=Vector+Databases+Explained"}] },
+  { day: 312, phase: "Phase 11: Real AI", topic: "Vector Databases", subtopics: [{title: "Embeddings generation & Storage", url: "https://www.youtube.com/results?search_query=Generating+Embeddings+OpenAI"}] },
+  { day: 313, phase: "Phase 11: Real AI", topic: "RAG Architecture", subtopics: [{title: "Retrieval-Augmented Generation Concept", url: "https://www.youtube.com/results?search_query=RAG+Architecture+Explained"}] },
+  { day: 314, phase: "Phase 11: Real AI", topic: "RAG Implementation", subtopics: [{title: "Build simple RAG pipeline in Python", url: "https://www.youtube.com/results?search_query=Build+RAG+Pipeline+Python"}] },
+  { day: 315, phase: "Phase 11: Real AI", topic: "AI Frameworks", subtopics: [{title: "LangChain Basics", url: "https://www.youtube.com/results?search_query=LangChain+Tutorial"}] },
+  { day: 316, phase: "Phase 11: Real AI", topic: "AI Frameworks", subtopics: [{title: "LlamaIndex Basics", url: "https://www.youtube.com/results?search_query=LlamaIndex+Tutorial"}] },
+  { day: 317, phase: "Phase 11: Real AI", topic: "AI SaaS Features", subtopics: [{title: "Building Smart Search APIs", url: "https://github.com/"}] },
+  { day: 318, phase: "Phase 11: Real AI", topic: "AI SaaS Features", subtopics: [{title: "Building Contextual AI Chatbot logic", url: "https://github.com/"}] },
+  { day: 319, phase: "Phase 11: Real AI", topic: "AI SaaS Features", subtopics: [{title: "Connecting Java Backend to Vector DB", url: "https://github.com/"}] },
+  { day: 320, phase: "Phase 11: Real AI", topic: "Cost Management", subtopics: [{title: "API Cost tracking & Rate limits", url: "https://platform.openai.com/docs/guides/production-best-practices"}] },
+  
+  // FINAL MASTER PROJECT: AI SAAS PLATFORM (Days 321-365)
+  { day: 321, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Brainstorm AI SaaS Idea & Define Scope", url: "https://github.com/"}] },
+  { day: 322, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "System Architecture & Database Schema", url: "https://github.com/"}] },
+  { day: 323, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Java Spring Boot Backend Base", url: "https://github.com/"}] },
+  { day: 324, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Postgres/MySQL Database", url: "https://github.com/"}] },
+  { day: 325, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement JWT Authentication & Roles", url: "https://github.com/"}] },
+  { day: 326, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement User Management APIs", url: "https://github.com/"}] },
+  { day: 327, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Python FastAPI Microservice for AI", url: "https://github.com/"}] },
+  { day: 328, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Integrate LLM/Custom ML into FastAPI", url: "https://github.com/"}] },
+  { day: 329, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Vector Database (Pinecone/Weaviate)", url: "https://github.com/"}] },
+  { day: 330, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement RAG / Data Processing Pipeline", url: "https://github.com/"}] },
+  { day: 331, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Connect Java Backend to FastAPI via HTTP", url: "https://github.com/"}] },
+  { day: 332, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Build Core Business Logic APIs (Part 1)", url: "https://github.com/"}] },
+  { day: 333, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Build Core Business Logic APIs (Part 2)", url: "https://github.com/"}] },
+  { day: 334, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement File Uploads (AWS S3 integration)", url: "https://github.com/"}] },
+  { day: 335, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement Asynchronous Tasks (Kafka/RabbitMQ)", url: "https://github.com/"}] },
+  { day: 336, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Webhooks for external integration", url: "https://github.com/"}] },
+  { day: 337, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Implement Caching (Redis) for AI responses", url: "https://github.com/"}] },
+  { day: 338, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Add Rate Limiting to prevent API abuse", url: "https://github.com/"}] },
+  { day: 339, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Write Unit Tests for Java Backend", url: "https://github.com/"}] },
+  { day: 340, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Write Tests for AI Microservice", url: "https://github.com/"}] },
+  { day: 341, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Integration Testing (End to End)", url: "https://github.com/"}] },
+  { day: 342, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Handle Edge Cases & Error Logging", url: "https://github.com/"}] },
+  { day: 343, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Dockerize Java Spring Boot App", url: "https://github.com/"}] },
+  { day: 344, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Dockerize FastAPI AI Service", url: "https://github.com/"}] },
+  { day: 345, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Write full docker-compose.yml", url: "https://github.com/"}] },
+  { day: 346, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Local Docker Environment Testing", url: "https://github.com/"}] },
+  { day: 347, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup Cloud Provider (AWS/GCP)", url: "https://github.com/"}] },
+  { day: 348, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Provision Cloud Database (RDS/Cloud SQL)", url: "https://github.com/"}] },
+  { day: 349, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Deploy Microservices to Cloud Instances", url: "https://github.com/"}] },
+  { day: 350, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Configure Domain, DNS, and SSL", url: "https://github.com/"}] },
+  { day: 351, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Setup CI/CD Actions for Auto-deployment", url: "https://github.com/"}] },
+  { day: 352, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Load Testing the Deployed Environment", url: "https://github.com/"}] },
+  { day: 353, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Database Indexing & Query Optimization", url: "https://github.com/"}] },
+  { day: 354, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Optimize AI Model Latency", url: "https://github.com/"}] },
+  { day: 355, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Monitor Production Logs", url: "https://github.com/"}] },
+  { day: 356, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Security Audit of Endpoints", url: "https://github.com/"}] },
+  { day: 357, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Write Swagger / OpenAPI Documentation", url: "https://github.com/"}] },
+  { day: 358, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Clean Up Code (SonarLint/Refactoring)", url: "https://github.com/"}] },
+  { day: 359, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Write comprehensive README.md", url: "https://github.com/"}] },
+  { day: 360, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Format GitHub Repo professionally", url: "https://github.com/"}] },
+  { day: 361, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Draft Architecture Diagrams", url: "https://github.com/"}] },
+  { day: 362, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Prepare Project Presentation Script", url: "https://github.com/"}] },
+  { day: 363, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Record Project Explanation Video", url: "https://github.com/"}] },
+  { day: 364, phase: "FINAL MASTER PROJECT 🚨", topic: "AI SaaS Product", subtopics: [{title: "Edit Video and Add to Portfolio", url: "https://github.com/"}] },
+  { day: 365, phase: "FINAL MASTER PROJECT 🚨", topic: "GRADUATION 🎓", subtopics: [{title: "Update Resume, LinkedIn, and apply for Junior AI/Backend roles!", url: "https://linkedin.com"}] }
 ];
-
-const learningPath = [];
-
-// Dynamic Generator: Matches your curriculum blocks to 365 days, adding direct Doc Links & Video Searches
-curriculumConfig.forEach(block => {
-    let taskCounter = 0;
-    
-    // Distribute the tasks array evenly across the assigned days for the block
-    for (let day = block.start; day <= block.end; day++) {
-        
-        let dailyTaskTitle = block.tasks[taskCounter % block.tasks.length];
-        taskCounter++;
-
-        // Creates a specific YouTube search query to immediately pull up tutorials for the exact subject
-        let videoSearchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent("Java Spring Boot ML " + block.topic + " " + dailyTaskTitle + " tutorial")}`;
-
-        let subtopics = [];
-        
-        // Task 1: Practical Implementation / Documentation Link
-        subtopics.push({ 
-            title: `Deep Dive: ${dailyTaskTitle}`, 
-            url: block.link 
-        });
-        
-        // Task 2: Video Tutorial Link
-        subtopics.push({ 
-            title: "Watch Hands-on Video Tutorial", 
-            url: videoSearchUrl 
-        });
-        
-        // Task 3: Systems Thinking (For days past 150)
-        if (day > 150) {
-            subtopics.push({ 
-                title: "System check: How does this scale under load?", 
-                url: "https://bytebytego.com/"
-            });
-        }
-
-        learningPath.push({
-            day: day,
-            phase: block.phase,
-            topic: block.topic,
-            subtopics: subtopics
-        });
-    }
-});
