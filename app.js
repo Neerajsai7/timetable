@@ -3,7 +3,7 @@
 
 const container = document.getElementById('days-container');
 const XP_BASE = 50; const XP_LATE = 25; const PENALTY_PER_DAY = 10;
-
+localStorage.removeItem('pathState');
 let appState = JSON.parse(localStorage.getItem('pathState')) || { 
     startDate: null, progress: {}, lastLogin: null 
 };
